@@ -9,13 +9,19 @@ AnimatorController:
   m_Name: CharacterAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: VelocityModifier
+  - m_Name: SpeedModifier
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: xDirection
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: BobbingModifier
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -296,7 +302,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: cef22e1b09c2ba74c85554823cb6aedc, type: 2}
   m_Tag: 
-  m_SpeedParameter: VelocityModifier
+  m_SpeedParameter: SpeedModifier
   m_MirrorParameter: FacingLeft
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -348,7 +354,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 1634589c88e967f4dad3ad7b85b6f0f1, type: 2}
   m_Tag: 
-  m_SpeedParameter: VelocityModifier
+  m_SpeedParameter: BobbingModifier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -375,7 +381,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 36670dababc41534eb05d9a46e2dd014, type: 2}
   m_Tag: 
-  m_SpeedParameter: VelocityModifier
+  m_SpeedParameter: SpeedModifier
   m_MirrorParameter: FacingLeft
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -406,7 +412,7 @@ AnimatorState:
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
-  m_TimeParameter: VelocityModifier
+  m_TimeParameter: SpeedModifier
 --- !u!1107 &1107136248657826638
 AnimatorStateMachine:
   serializedVersion: 5
@@ -457,6 +463,25 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102714009701545748}
+--- !u!1107 &1107430627404806536
+AnimatorStateMachine:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Layer
+  m_ChildStates: []
+  m_ChildStateMachines: []
+  m_AnyStateTransitions: []
+  m_EntryTransitions: []
+  m_StateMachineTransitions: {}
+  m_StateMachineBehaviours: []
+  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_DefaultState: {fileID: 0}
 --- !u!1107 &1107660810564693066
 AnimatorStateMachine:
   serializedVersion: 5

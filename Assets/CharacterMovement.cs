@@ -5,8 +5,8 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     public float speed;
+    public float jumpPower;
 
-    public Animator animator;
     public Rigidbody selfBody;
 
     public const float walkVelocity = 4.0f;
@@ -17,13 +17,16 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         Vector2 movementVector = Controls.getDirection();
+        selfBody.velocity += (Vector3.right * movementVector.x + Vector3.forward * movementVector.y).normalized;
 
-        float initialSpeed = selfBody.velocity.magnitude;
-        float currentSpeed = movementVector.magnitude * speed;
+        Vector3 vel = selfBody.velocity;
+        vel.x = Mathf.Min(Mathf.Abs(vel.x), speed) * Mathf.Sign(vel.x);
+        vel.z = Mathf.Min(Mathf.Abs(vel.z), speed) * Mathf.Sign(vel.z);
+        selfBody.velocity = vel;
 
-        selfBody.velocity = (Vector3.right * movementVector.x + Vector3.forward * movementVector.y) * speed;
-
-        animator.SetFloat("VelocityModifier", currentSpeed / walkVelocity);
-        animator.SetFloat("xDirection", selfBody.velocity.x);
+        if (Controls.jumpInputDown())
+        {
+            selfBody.velocity += Vector3.up * jumpPower;
+        }
     }
 }
