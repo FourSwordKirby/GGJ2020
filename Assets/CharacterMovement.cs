@@ -4,14 +4,30 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    public float velocity;
+    public float speed;
+
+    public Animator animator;
     public Rigidbody selfBody;
+
+    public const float walkVelocity = 4.0f;
+    public const float maxTurnRotation = 30.0f; //notes for how far the model is allowed to tilt/rotate
+    public const float maxTiltRotation = 10.0f;
 
     // Update is called once per frame
     void Update()
     {
         Vector2 movementVector = Controls.getDirection();
-        print(movementVector);
-        selfBody.velocity = (Vector3.right * movementVector.x + Vector3.forward * movementVector.y) * velocity;
+
+        float initialSpeed = selfBody.velocity.magnitude;
+        float currentSpeed = movementVector.magnitude * speed;
+
+        selfBody.velocity = (Vector3.right * movementVector.x + Vector3.forward * movementVector.y) * speed;
+
+        animator.SetFloat("velocityModifier", speed / walkVelocity);
+
+        if (initialSpeed < 1.0f && 1.0f <= currentSpeed)
+            animator.SetTrigger("MoveStart");
+        else if (currentSpeed < 1.0f && 1.0f <= initialSpeed)
+            animator.SetTrigger("MoveStop");
     }
 }
