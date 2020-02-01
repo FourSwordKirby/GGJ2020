@@ -25,9 +25,5 @@ public class CharacterMovement : MonoBehaviour
 
         animator.SetFloat("VelocityModifier", currentSpeed / walkVelocity);
         animator.SetFloat("xDirection", selfBody.velocity.x);
-        if (initialSpeed < 0.3f && 0.3f <= currentSpeed)
-            animator.SetTrigger("MoveStart");
-        else if (currentSpeed < 0.3f && 0.3f <= initialSpeed)
-            animator.SetTrigger("MoveStop");
     }
 }
