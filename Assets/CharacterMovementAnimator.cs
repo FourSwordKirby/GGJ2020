@@ -15,10 +15,10 @@ public class CharacterMovementAnimator : MonoBehaviour
     void Update()
     {
         Vector3 velocityVector = movement.selfBody.velocity;
-        bool isGrounded = Mathf.Abs(velocityVector.y) > 0.3f;//Temporary y-velocity check bc too lazy to implement proper ECB based isGrounded check
+        bool isGrounded = Mathf.Abs(velocityVector.y) <= 0.3f;//Temporary y-velocity check bc too lazy to implement proper ECB based isGrounded check
 
         float speedModifier = velocityVector.magnitude / CharacterMovement.walkVelocity;
-        float bobbingModifier = speedModifier * (isGrounded ? 0 : 1);
+        float bobbingModifier = speedModifier * (isGrounded ? 1 : 0);
 
         animator.SetFloat("SpeedModifier", speedModifier);
         animator.SetFloat("BobbingModifier", bobbingModifier);
@@ -29,6 +29,7 @@ public class CharacterMovementAnimator : MonoBehaviour
 
         ParticleSystem.ShapeModule dashPartShape = dashParticleSystem.shape;
         dashPartShape.rotation = Vector3.right * 90 + Vector3.forward * (zAngle + 90);
+
         ParticleSystem.EmissionModule dashPartEmission = dashParticleSystem.emission;
         dashPartEmission.rateOverTimeMultiplier = bobbingModifier * emitSpeed;
 

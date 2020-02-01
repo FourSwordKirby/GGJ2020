@@ -31,6 +31,7 @@ MonoBehaviour:
   animator: {fileID: 7171450357296070711}
   dashParticleSystem: {fileID: 6260875863671226123}
   emitSpeed: 2
+  poofParticleSystem: {fileID: 7782537877002146166}
 --- !u!1001 &7522721873042306135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +198,51 @@ PrefabInstance:
         type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].probability
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 379680369546022268, guid: 1ddd3313e4effa34b81036e579486c45,
         type: 3}
@@ -396,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 4505018833115794268, guid: 1ddd3313e4effa34b81036e579486c45,
         type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5895180349180339322, guid: 1ddd3313e4effa34b81036e579486c45,
         type: 3}
@@ -452,6 +498,12 @@ Animator:
 --- !u!198 &6260875863671226123 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4505018833115794268, guid: 1ddd3313e4effa34b81036e579486c45,
+    type: 3}
+  m_PrefabInstance: {fileID: 7522721873042306135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7782537877002146166 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 317278754269504801, guid: 1ddd3313e4effa34b81036e579486c45,
     type: 3}
   m_PrefabInstance: {fileID: 7522721873042306135}
   m_PrefabAsset: {fileID: 0}

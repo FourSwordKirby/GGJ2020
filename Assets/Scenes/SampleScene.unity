@@ -5539,12 +5539,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713078483}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!198 &781082800 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7782537877002146166, guid: 8490386e6898afa4691cab39c01ca4bc,
-    type: 3}
-  m_PrefabInstance: {fileID: 7864119372932241148}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &854926750
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,11 +6414,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2096589720270148038, guid: 8490386e6898afa4691cab39c01ca4bc,
-        type: 3}
-      propertyPath: poofParticleSystem
-      value: 
-      objectReference: {fileID: 781082800}
     - target: {fileID: 5530946660503106705, guid: 8490386e6898afa4691cab39c01ca4bc,
         type: 3}
       propertyPath: m_Name
