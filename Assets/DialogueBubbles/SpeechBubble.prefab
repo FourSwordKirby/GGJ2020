@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1203477145, guid: 6338e2a978e71cb4e929e5fe7fc312b4, type: 3}
+      propertyPath: loggable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8278851160514969809, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_Mesh
@@ -40,22 +44,22 @@ PrefabInstance:
     - target: {fileID: 8278851160758935610, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_Name
-      value: SpeechAsset
+      value: SpeechBubble
       objectReference: {fileID: 0}
     - target: {fileID: 8278851160758935611, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.9855103
+      value: 0.28933406
       objectReference: {fileID: 0}
     - target: {fileID: 8278851160758935611, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8750222
+      value: 2.2956448
       objectReference: {fileID: 0}
     - target: {fileID: 8278851160758935611, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.100672
+      value: 6.78
       objectReference: {fileID: 0}
     - target: {fileID: 8278851160758935611, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}

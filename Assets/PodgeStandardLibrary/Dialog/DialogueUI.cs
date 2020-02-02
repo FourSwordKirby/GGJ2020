@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System;
 
-public class DialogUI : MonoBehaviour
+public class DialogueUI : MonoBehaviour
 {
     public Text dialogField;
     public Text speaker;

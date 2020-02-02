@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1203477145, guid: 6338e2a978e71cb4e929e5fe7fc312b4, type: 3}
+      propertyPath: displayModifier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8278851158744064866, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -105,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 8278851160758935610, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_Name
-      value: SpeechPrompt
+      value: SpeechPromt
       objectReference: {fileID: 0}
     - target: {fileID: 8278851160758935611, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
