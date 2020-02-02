@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public delegate void AfterDialogueEvent();
 
-    public const float DIALOGUE_DISPLAY_COOLDOWN = 0.2f;
-
     public static GameManager instance;
     public void Awake()
     {
@@ -32,22 +30,22 @@ public class GameManager : MonoBehaviour
     internal IEnumerator PlayConversation(TextAsset dialogue, Vector3 speakerPosition, AfterDialogueEvent afterEvent = null)
     {
         ConversationPause();
+        List<string> dialogueLines = DialogueEngine.CreateDialogComponents(dialogue.text);
+        DialogueUIController.instance.init(dialogueLines.Count);
 
-        List<string> dialogueLines = DialogEngine.CreateDialogComponents(dialogue.text);
         int lineTracker = 0;
         while(lineTracker < dialogueLines.Count)
         {
             string currentLine = dialogueLines[lineTracker];
-            SpeechAsset speechBubble = UIController.displaySpeechBubble(currentLine, speakerPosition);
-
-            yield return new WaitForSeconds(DIALOGUE_DISPLAY_COOLDOWN);
+            DialogueUIController.instance.displaySpeechBubble(currentLine, speakerPosition);
+            while (!DialogueUIController.instance.ready)
+                yield return null;
             while (!Controls.confirmInputDown())
                 yield return null;
 
-            print(speechBubble);
-            UIController.hideSpeechBubble(speechBubble);
             lineTracker++;
         }
+        DialogueUIController.instance.finishDialogue();
 
         afterEvent();
         ConversationUnpause();

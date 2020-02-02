@@ -6,11 +6,16 @@ using UnityEngine;
 
 public class SpeechAsset : MonoBehaviour
 {
-    public Animator animator;
-    public TextMeshPro textMesh;
-    public Transform anchorPoint;
+    public bool loggable;
 
+    public MeshRenderer textFrame;
+    public TextMeshPro textMesh;
+    public Animator animator;
+
+    public Transform anchorPoint;
     public float displayModifier;
+    public Color focusColor;
+    public Color blurColor;
 
     private void Start()
     {
@@ -23,6 +28,16 @@ public class SpeechAsset : MonoBehaviour
         this.transform.position = speakerPosition - anchorPoint.localPosition;
     }
 
+    public void focus()
+    {
+        textFrame.material.color = focusColor;
+    }
+
+    public void blur()
+    {
+        textFrame.material.color = blurColor;
+    }
+
     public void hide()
     {
         animator.SetBool("Deployed", false);
@@ -33,7 +48,13 @@ public class SpeechAsset : MonoBehaviour
         textMesh.text = text;
     }
 
-    public void Destroy()
+    public void cleanup()
+    {
+        if (!loggable)
+            destroy();
+    }
+
+    public void destroy()
     {
         Destroy(this.gameObject);
     }

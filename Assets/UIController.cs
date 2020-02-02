@@ -48,6 +48,7 @@ public class UIController : MonoBehaviour
 
     public static void hideSpeechBubble(SpeechAsset speechBubble)
     {
+        speechBubble.blur();
         speechBubble.hide();
     }
 }

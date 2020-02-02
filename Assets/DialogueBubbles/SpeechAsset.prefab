@@ -589,9 +589,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29195341a1d897548ba4ce92ea46c162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6641911618477574343}
+  textFrame: {fileID: 8278851158902469303}
   textMesh: {fileID: 8278851160514969811}
+  animator: {fileID: 6641911618477574343}
   anchorPoint: {fileID: 575703631}
+  displayModifier: 0
+  focusColor: {r: 1, g: 1, b: 1, a: 1}
+  blurColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
 --- !u!95 &6641911618477574343
 Animator:
   serializedVersion: 3
