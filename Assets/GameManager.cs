@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     {
         ConversationPause();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<CharacterExperssion>().startTalking();
+
         List<string> dialogueLines = DialogueEngine.CreateDialogComponents(dialogue.text);
         DialogueUIController.instance.init(dialogueLines.Count);
 
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
             lineTracker++;
         }
         DialogueUIController.instance.finishDialogue();
+        player.GetComponent<CharacterExperssion>().stopTalking();
 
         afterEvent();
         ConversationUnpause();

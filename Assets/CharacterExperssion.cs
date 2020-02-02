@@ -12,6 +12,16 @@ public class CharacterExperssion : MonoBehaviour
     public List<Texture2D> expressions;
     public List<Sprite> expressionSprites;
 
+    public void startTalking()
+    {
+        animator.SetBool("Talking", true);
+    }
+
+    public void stopTalking()
+    {
+        animator.SetBool("Talking", false);
+    }
+
     public void changeExpression(Expressions expression)
     {
         print("called");
