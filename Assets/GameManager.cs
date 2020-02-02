@@ -65,8 +65,11 @@ public class GameManager : MonoBehaviour
         DialogueUIController.instance.finishDialogue();
         player.GetComponent<CharacterExperssion>().stopTalking();
 
-        afterEvent();
+        while(!DialogueUIController.instance.ready)
+            yield return null;
+
         ConversationUnpause();
+        afterEvent();
         yield return null;
     }
 

@@ -16,31 +16,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8278851160514969811, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 67
-      objectReference: {fileID: 0}
-    - target: {fileID: 8278851160514969811, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8278851160514969811, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8278851160514969811, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8278851160514969811, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8278851160758935610, guid: 6338e2a978e71cb4e929e5fe7fc312b4,
         type: 3}
       propertyPath: m_Name

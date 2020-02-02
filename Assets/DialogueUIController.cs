@@ -29,6 +29,8 @@ public class DialogueUIController : MonoBehaviour
     //This hacky implementation is kind of bad but I really don't want to mess with making the animator do this
     public void init(int maxLogLength)
     {
+        speechBubbles = new List<SpeechAsset>();
+
         randomSeedsX = new List<float>(maxLogLength);
         randomSeedsY = new List<float>(maxLogLength);
 
@@ -41,6 +43,7 @@ public class DialogueUIController : MonoBehaviour
 
     public void finishDialogue()
     {
+        ready = false;
         for (int i = 0; i < speechBubbles.Count; i++)
             speechBubbles[i].hide();
         StartCoroutine(cleanup());
@@ -48,10 +51,10 @@ public class DialogueUIController : MonoBehaviour
 
     private IEnumerator cleanup()
     {
-        yield return new WaitForSeconds(5.0f);
-
+        yield return new WaitForSeconds(1.0f);
         for (int i = 0; i < speechBubbles.Count; i++)
             speechBubbles[i].destroy();
+        ready = true;
     }
 
     public void displaySpeechBubble(string text, Vector3 speakerPosition)
