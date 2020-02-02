@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
 
     public Rigidbody selfBody;
 
-    public const float walkVelocity = 4.0f;
+    public float walkVelocity;
     public const float maxTurnRotation = 30.0f; //notes for how far the model is allowed to tilt/rotate
     public const float maxTiltRotation = 10.0f;
 
