@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public delegate void AfterDialogueEvent();
+
     public static GameManager instance;
     public void Awake()
     {
@@ -20,16 +22,44 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    internal string StartConversation(TextAsset dialogue)
+    public void StartConversation(TextAsset dialogue, Vector3 speakerPosition, AfterDialogueEvent afterEvent = null)
+    {
+        StartCoroutine(PlayConversation(dialogue, speakerPosition, afterEvent));
+    }
+
+    internal IEnumerator PlayConversation(TextAsset dialogue, Vector3 speakerPosition, AfterDialogueEvent afterEvent = null)
     {
         ConversationPause();
-        throw new NotImplementedException();
+        List<string> dialogueLines = DialogueEngine.CreateDialogComponents(dialogue.text);
+        DialogueUIController.instance.init(dialogueLines.Count);
+
+        int lineTracker = 0;
+        while(lineTracker < dialogueLines.Count)
+        {
+            string currentLine = dialogueLines[lineTracker];
+            DialogueUIController.instance.displaySpeechBubble(currentLine, speakerPosition);
+            while (!DialogueUIController.instance.ready)
+                yield return null;
+            while (!Controls.confirmInputDown())
+                yield return null;
+
+            lineTracker++;
+        }
+        DialogueUIController.instance.finishDialogue();
+
+        afterEvent();
+        ConversationUnpause();
+        yield return null;
     }
 
     //hacky gameplay pause implementation for speed
     private void ConversationPause()
     {
         PauseGameplay();
+    }
+    private void ConversationUnpause()
+    {
+        ResumeGameplay();
     }
 
     bool gamePaused = false;

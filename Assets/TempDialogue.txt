@@ -1,1 +1,8 @@
-Sorry traveler, the Cathedral is currently closed today for repairs
+FillerStatement1
+FillerStatement2
+FillerStatement3
+FillerStatement4
+FillerStatement5
+FillerStatement6
+Sorry traveler, the Cathedral is currently closed today for repairs.
+Come by tomorrow and we should be accepting visitors.

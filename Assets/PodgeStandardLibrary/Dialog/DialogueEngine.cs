@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class DialogEngine : MonoBehaviour
+public class DialogueEngine : MonoBehaviour
 {
-    public static DialogEngine instance;
+    public static DialogueEngine instance;
 
     public void Awake()
     {
