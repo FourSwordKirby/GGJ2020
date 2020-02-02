@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -38,11 +39,15 @@ public class GameManager : MonoBehaviour
         }
 
         ConversationPause();
+        Vector3 currentSpeakerPosition = Vector3.zero;
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterExperssion>().startTalking();
 
         List<string> dialogueLines = DialogueEngine.CreateDialogComponents(dialogue.text);
         DialogueUIController.instance.init(dialogueLines.Count);
+
+        Dictionary<string, GameObject> speakerDict = DialogueEngine.GetSpeakers(dialogue.text).ToDictionary(x => x, x => GameObject.Find(x));
 
         int lineTracker = 0;
         while(lineTracker < dialogueLines.Count)
@@ -58,7 +63,15 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                DialogueUIController.instance.displaySpeechBubble(currentLine, speakerPosition);
+                string speaker = DialogueEngine.GetSpeaker(currentLine);
+
+                if (speaker != "")
+                    speakerPosition = speakerDict[speaker].transform.position;
+                else
+                    speakerPosition = currentSpeakerPosition;
+
+                currentSpeakerPosition = speakerPosition;
+                DialogueUIController.instance.displaySpeechBubble(currentLine, currentSpeakerPosition);
                 while (!DialogueUIController.instance.ready)
                     yield return null;
                 while (!Controls.confirmInputDown())
