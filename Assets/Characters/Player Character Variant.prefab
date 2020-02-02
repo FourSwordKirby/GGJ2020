@@ -245,6 +245,12 @@ PrefabInstance:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
+    - target: {fileID: 379680369546022258, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 54b5789fb14659848b6f2e5f1d0ce43d,
+        type: 3}
     - target: {fileID: 379680369546022268, guid: 1ddd3313e4effa34b81036e579486c45,
         type: 3}
       propertyPath: m_Layer
@@ -465,6 +471,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 7122784058223935927, guid: 1ddd3313e4effa34b81036e579486c45,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 20b2a6e8c52d5c74da9de27628b32cd3, type: 2}
     - target: {fileID: 7206297845235826350, guid: 1ddd3313e4effa34b81036e579486c45,
         type: 3}
       propertyPath: m_Layer
