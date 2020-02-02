@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2102565837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751271868590584099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2914376ccf0a00d4495b068a7b9d8312, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxName: 
-  owner: {fileID: 0}
 --- !u!114 &562282388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,10 +19,12 @@ MonoBehaviour:
   - {fileID: 2800000, guid: b9c0b570859655f4a8e584fe9387c88c, type: 3}
   - {fileID: 2800000, guid: 03dfab912775faf469a14ed5152e6ab8, type: 3}
   - {fileID: 2800000, guid: 0f4eaed5394a1604d87f1c8cfe3bc9de, type: 3}
+  - {fileID: 2800000, guid: 45fb430973d2b2b4c8f3ecf4c8d8754b, type: 3}
   expressionSprites:
   - {fileID: 21300000, guid: b9c0b570859655f4a8e584fe9387c88c, type: 3}
   - {fileID: 21300000, guid: 03dfab912775faf469a14ed5152e6ab8, type: 3}
   - {fileID: 21300000, guid: 0f4eaed5394a1604d87f1c8cfe3bc9de, type: 3}
+  - {fileID: 21300000, guid: 45fb430973d2b2b4c8f3ecf4c8d8754b, type: 3}
 --- !u!114 &114192062918017170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +58,20 @@ MonoBehaviour:
   dashParticleSystem: {fileID: 6260875863671226123}
   emitSpeed: 2
   poofParticleSystem: {fileID: 7782537877002146166}
+--- !u!114 &2102565837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751271868590584099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2914376ccf0a00d4495b068a7b9d8312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxName: 
+  owner: {fileID: 0}
 --- !u!1001 &7522721873042306135
 PrefabInstance:
   m_ObjectHideFlags: 0

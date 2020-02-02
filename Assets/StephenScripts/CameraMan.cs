@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class CameraMan : MonoBehaviour
 
     public bool EnableInEditMode = false;
     public bool EnableTransformTracking = true;
+    public bool IsCinematic = false;
     public Transform TransformToTrack;
 
     public Transform DefaultTransform;
@@ -36,21 +38,40 @@ public class CameraMan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (TransformToTrack != null)
-        {
-            OffsetVectorToTrackedTransform = TransformToTrack.position - this.transform.position;
-        }
+        //if (TransformToTrack != null)
+        //{
+        //    OffsetVectorToTrackedTransform = TransformToTrack.position - this.transform.position;
+        //}
+    }
+
+    public void StartCinematicMode(Transform cameraPosition)
+    {
+        IsCinematic = true;
+        TargetPosition = cameraPosition.position;
+        TargetRotation = cameraPosition.rotation;
+    }
+
+    public void EndCinematicMode()
+    {
+        IsCinematic = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Allow camera logic in Editor if EnableInEditMode is true
         if (!Application.isPlaying && !EnableInEditMode)
         {
             return;
         }
 
-        if (EnableTransformTracking)
+        if (IsCinematic)
+        {
+            // This effectively means the CameraMan gives up the Camera.
+            MyCamera.transform.position = Vector3.Lerp(MyCamera.transform.position, TargetPosition, TranslatationLerpFactor);
+            MyCamera.transform.rotation = Quaternion.Lerp(MyCamera.transform.rotation, TargetRotation, RotationLerpFactor);
+        }
+        else if (EnableTransformTracking)
         {
             if (TransformToTrack == null)
             {
@@ -87,8 +108,11 @@ public class CameraMan : MonoBehaviour
                 float minZ = DeadZone.min.z;
                 float maxZ = DeadZone.max.z;
                 float zPoint = (TransformToTrack.position.z - minZ) / (maxZ - minZ);
-                MyCamera.transform.position = Vector3.Lerp(LowZTransform.position, HighZTransform.position, zPoint);
-                MyCamera.transform.rotation = Quaternion.Lerp(LowZTransform.rotation, HighZTransform.rotation, zPoint);
+                Vector3 targetCameraPosition = Vector3.Lerp(LowZTransform.position, HighZTransform.position, zPoint);
+                Quaternion targetCameraRotation = Quaternion.Lerp(LowZTransform.rotation, HighZTransform.rotation, zPoint);
+
+                MyCamera.transform.position = Vector3.Lerp(MyCamera.transform.position, targetCameraPosition, TranslatationLerpFactor);
+                MyCamera.transform.rotation = Quaternion.Lerp(MyCamera.transform.rotation, targetCameraRotation, RotationLerpFactor);
             }
             
             this.transform.position = TargetPosition;
@@ -96,8 +120,7 @@ public class CameraMan : MonoBehaviour
         }
         else
         {
-            this.transform.position = Vector3.Lerp(this.transform.position, TargetPosition, TranslatationLerpFactor);
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, TargetRotation, RotationLerpFactor);
+            // Do nothing if no other mode is enabled.
         }
     }
 
@@ -129,5 +152,12 @@ public class CameraMan : MonoBehaviour
     public void SaveCameraValuesToLowZ()
     {
         LowZTransform.CopyValues(MyCamera.transform);
+    }
+
+    public void SaveCameraValuesToNewTransform()
+    {
+        GameObject obj = new GameObject("Saved Camera Position");
+        obj.transform.SetParent(this.transform);
+        obj.transform.CopyValues(MyCamera.transform);
     }
 }

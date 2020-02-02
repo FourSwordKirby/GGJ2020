@@ -12,6 +12,8 @@ public class CharacterExperssion : MonoBehaviour
     public List<Texture2D> expressions;
     public List<Sprite> expressionSprites;
 
+    public Expressions? targetExpression = null;
+
     public void startTalking()
     {
         animator.SetBool("Talking", true);
@@ -25,43 +27,30 @@ public class CharacterExperssion : MonoBehaviour
     public void changeExpression(Expressions expression)
     {
         print("called");
-        switch (expression)
-        {
-            case Expressions.normal:
-                animator.SetTrigger("NormalExpression");
-                break;
-            case Expressions.smile:
-                animator.SetTrigger("UpsetExpression");
-                break;
-            case Expressions.yandere:
-                animator.SetTrigger("YandereExpression");
-                break;
-        }
+        targetExpression = expression;
+        animator.SetTrigger("NormalExpression");
     }
 
-    private void animateExpression(Expressions expression)
+    private void animateExpression()
     {
-        switch (expression)
+        if (targetExpression.HasValue)
         {
-            case Expressions.normal:
-                expressionRendererFront.material.SetTexture("_MainTex", expressions[0]);
-                expressionRendererBack.sprite = expressionSprites[0];
-                break;
-            case Expressions.smile:
-                expressionRendererFront.material.SetTexture("_MainTex", expressions[1]);
-                expressionRendererBack.sprite = expressionSprites[1];
-                break;
-            case Expressions.yandere:
-                expressionRendererFront.material.SetTexture("_MainTex", expressions[2]);
-                expressionRendererBack.sprite = expressionSprites[2];
-                break;
+            expressionRendererFront.material.SetTexture("_MainTex", expressions[(int)targetExpression.Value]);
+            expressionRendererBack.sprite = expressionSprites[(int)targetExpression.Value];
+        }
+        else
+        {
+            Debug.LogWarning("animateExpression called, but no targetExpression was set.");
+            expressionRendererFront.material.SetTexture("_MainTex", expressions[0]);
+            expressionRendererBack.sprite = expressionSprites[0];
         }
     }
 
     public enum Expressions
     {
-        normal,
-        smile,
-        yandere
+        normal = 0,
+        smile = 1,
+        yandere = 2,
+        think = 3
     }
 }

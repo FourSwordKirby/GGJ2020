@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public delegate void AfterDialogueEvent();
 
     public static GameManager instance;
+
     public void Awake()
     {
         if (GameManager.instance == null)
@@ -22,13 +23,20 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public void StartConversation(TextAsset dialogue, Vector3 speakerPosition, AfterDialogueEvent afterEvent = null)
+    public void StartConversation(TextAsset dialogue, Vector3 speakerPosition, Transform cameraPosition = null, AfterDialogueEvent afterEvent = null)
     {
-        StartCoroutine(PlayConversation(dialogue, speakerPosition, afterEvent));
+        StartCoroutine(PlayConversation(dialogue, speakerPosition, cameraPosition, afterEvent));
     }
 
-    internal IEnumerator PlayConversation(TextAsset dialogue, Vector3 speakerPosition, AfterDialogueEvent afterEvent = null)
+    internal IEnumerator PlayConversation(TextAsset dialogue, Vector3 speakerPosition, Transform cameraPosition = null, AfterDialogueEvent afterEvent = null)
     {
+        // If a special camera position was provided, tell the camera man to use it.
+        CameraMan cameraMan = FindObjectOfType<CameraMan>();
+        if (cameraPosition != null)
+        {
+            cameraMan.StartCinematicMode(cameraPosition);
+        }
+
         ConversationPause();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterExperssion>().startTalking();
@@ -41,15 +49,12 @@ public class GameManager : MonoBehaviour
         {
             string currentLine = dialogueLines[lineTracker];
 
-            if (currentLine.Substring(0, 12) == "[expression]")
+            if (currentLine.StartsWith("[expression]"))
             {
                 print(currentLine);
-                if(currentLine.Contains("normal"))
-                    player.GetComponent<CharacterExperssion>().changeExpression(CharacterExperssion.Expressions.normal);
-                else if (currentLine.Contains("smile"))
-                    player.GetComponent<CharacterExperssion>().changeExpression(CharacterExperssion.Expressions.smile);
-                else if (currentLine.Contains("yandere"))
-                    player.GetComponent<CharacterExperssion>().changeExpression(CharacterExperssion.Expressions.yandere);
+                var expressionString = currentLine.Split(' ')[1];
+                var expression = (CharacterExperssion.Expressions)Enum.Parse(typeof(CharacterExperssion.Expressions), expressionString);
+                player.GetComponent<CharacterExperssion>().changeExpression(expression);
             }
             else
             {
@@ -69,6 +74,9 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         ConversationUnpause();
+
+        cameraMan.EndCinematicMode();
+
         afterEvent();
         yield return null;
     }

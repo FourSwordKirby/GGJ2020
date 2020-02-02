@@ -49,5 +49,10 @@ public class CameraManEditor : Editor
             cm.SaveCameraValuesToHighZ();
         }
         EditorGUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Save To New Transform"))
+        {
+            cm.SaveCameraValuesToNewTransform();
+        }
     }
 }

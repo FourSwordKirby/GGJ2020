@@ -6,6 +6,9 @@ public class DialoguePromptTrigger : MonoBehaviour
 {
     public TextAsset dialogue;
     public bool repeatingDialogue;
+    public bool forceDialogueOnEnter = false;
+    public Transform desiredSpeaker;
+    public Transform cameraPosition;
 
     private bool dialogueActive;
 
@@ -14,7 +17,15 @@ public class DialoguePromptTrigger : MonoBehaviour
     // Update is called once per frame
     void OnTriggerEnter(Collider col)
     {
-        displayPrompt();
+        if (forceDialogueOnEnter)
+        {
+            displayDialogue();
+
+        }
+        else
+        {
+            displayPrompt();
+        }
     }
 
     void OnTriggerExit(Collider col)
@@ -34,10 +45,18 @@ public class DialoguePromptTrigger : MonoBehaviour
     {
         dialogueActive = true;
         hidePrompt();
+
+        Vector3 speakerPosition = transform.position;
+        if (desiredSpeaker != null)
+        {
+            // Add 1 unit up so that the speech bubble is in a reasonable spot.
+            speakerPosition = desiredSpeaker.position + Vector3.up * 1f;
+        }
+
         if (repeatingDialogue)
-            GameManager.instance.StartConversation(dialogue, transform.position, hideDialogue);
+            GameManager.instance.StartConversation(dialogue, speakerPosition, cameraPosition, hideDialogue);
         else
-            GameManager.instance.StartConversation(dialogue, transform.position, destroy);
+            GameManager.instance.StartConversation(dialogue, speakerPosition, cameraPosition, destroy);
     }
     
     private void hideDialogue()
@@ -54,6 +73,11 @@ public class DialoguePromptTrigger : MonoBehaviour
 
     private void hidePrompt()
     {
+        if (speechPrompt == null)
+        {
+            return;
+        }
+
         UIController.hideSpeechPrompt(speechPrompt);
     }
 
