@@ -24,9 +24,9 @@ public class DialogueEngine : MonoBehaviour
         return dialogComponents;
     }
 
-    internal static List<string> GetSpeakers(string text)
+    internal static HashSet<string> GetSpeakers(string text)
     {
-        List<string> speakers = new List<string>();
+        HashSet<string> speakers = new HashSet<string>();
 
         List<string> dialogComponents = CreateDialogComponents(text);
         foreach (string line in dialogComponents)
@@ -46,5 +46,15 @@ public class DialogueEngine : MonoBehaviour
             return dialoguePieces[0];
         else
             return "";
+    }
+
+    internal static string GetSpokenLine(string line)
+    {
+        string[] dialoguePieces = line.Split(':');
+
+        if (dialoguePieces.Length > 1)
+            return dialoguePieces[1];
+        else
+            return line;
     }
 }

@@ -67,7 +67,15 @@ public class DialoguePromptTrigger : MonoBehaviour
 
     private void displayPrompt()
     {
-        speechPrompt = UIController.displaySpeechPrompt(transform.position);
+        Vector2 speakerScrenPosition = Camera.main.WorldToScreenPoint(transform.position);
+
+        bool onLeftSide;
+        if (speakerScrenPosition.x < Camera.main.pixelWidth / 2.0f)
+            onLeftSide = false;
+        else
+            onLeftSide = true;
+
+        speechPrompt = UIController.displaySpeechPrompt(transform.position, onLeftSide);
     }
 
 

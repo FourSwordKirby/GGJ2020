@@ -22,10 +22,18 @@ public class SpeechAsset : MonoBehaviour
         animator.speed = displayModifier == 0 ? 1 : displayModifier;
     }
 
-    public void deployAt(Vector3 speakerPosition)
+    //currently the bubble only displays facing left or right depending on the argument
+    //in the future we want it to display based on any number of relative positions.
+    public void deployAt(Vector3 speakerPosition, bool isLeftSide)
     {
         animator.SetBool("Deployed", true);
-        this.transform.position = speakerPosition - anchorPoint.localPosition;
+        if(isLeftSide)
+            this.transform.position = speakerPosition - anchorPoint.localPosition;
+        else
+        {
+            textFrame.transform.localScale -= Vector3.right * textFrame.transform.localScale.x * 2;
+            this.transform.position = speakerPosition - anchorPoint.localPosition + Vector3.right * anchorPoint.localPosition.x * 2;
+        }
     }
 
     public void focus()
