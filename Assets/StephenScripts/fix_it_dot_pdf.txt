@@ -1,0 +1,57 @@
+Isabella
+Ah, so that’s where Mr. Bunbun went.
+
+[Isabella approaches the rabbit plushie on the bridge.]
+
+Isabella
+Don’t go running off. I haven’t repaired all of these bridges yet.
+Are you upset? I’m sorry I can’t bake carrot cake like Dianna…
+I miss her too, but…
+…
+Oh no, you have a tear in your leg! Poor thing! I have to fix you!
+I left sewing kit over there…
+
+[Isabella walks right and finds that the bridge has collapsed.]
+
+Isabella
+	I guess this part collapsed.
+	More work for later today…
+	It’ll be faster to make a new sewing set at the cathedral instead.
+
+[Isabella walks left and finds the entrance blocked by a statue.]
+
+Isabella
+	Why is there a new Mr. Boulder?
+Step aside.
+
+Mr. Boulder
+	No can do, Isabella.
+Even if Master Dianna is no longer with us, I will continue to resist you. 
+	
+
+Isabella
+I have to fix something… move.
+
+Mr. Boulder 
+There’s so little left in the cathedral.
+You need to stop.
+
+Isabella
+	But there’s something I have to fix…
+
+[Dialogue ends there. If the player tries again to enter, Mr. Boulder rotates through the following lines]
+
+Mr. Boulder
+Not everything needs to be fixed.
+Do you not feel ashamed of yourself?
+I thought you were Dianna’s friend…
+
+[Isabella can retrieve a broken chunk of rock at the right side of the map and return to smash the statue.]
+
+[Entering the cathedral should alter the lighting to a dreary dark color.]
+Isabella
+	Who keeps repairing Mr. Boulder…?
+	How are you getting in my way still, Dianna?
+
+[Fade to black] 
+
