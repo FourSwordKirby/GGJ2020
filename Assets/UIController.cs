@@ -24,7 +24,7 @@ public class UIController : MonoBehaviour
         staticSpeechPromptPrefab = speechPromptPrefab;
     }
 
-    public static SpeechAsset deploySpeechPrompt(Vector3 speakerPosition)
+    public static SpeechAsset displaySpeechPrompt(Vector3 speakerPosition)
     {
         SpeechAsset speechPrompt = Instantiate(staticSpeechPromptPrefab).GetComponent<SpeechAsset>();
         speechPrompt.deployAt(speakerPosition);
@@ -37,10 +37,17 @@ public class UIController : MonoBehaviour
         speechPrompt.hide();
     }
 
-    public static void deploySpeechAsset(Vector3 speakerPosition, string text)
+    public static SpeechAsset displaySpeechBubble(string text, Vector3 speakerPosition)
     {
-        SpeechAsset speechAsset = Instantiate(staticSpeechBubblePrefab).GetComponent<SpeechAsset>();
-        speechAsset.setText(text);
-        speechAsset.deployAt(speakerPosition);
+        SpeechAsset speechBubble = Instantiate(staticSpeechBubblePrefab).GetComponent<SpeechAsset>();
+        speechBubble.setText(text);
+        speechBubble.deployAt(speakerPosition);
+
+        return speechBubble;
+    }
+
+    public static void hideSpeechBubble(SpeechAsset speechBubble)
+    {
+        speechBubble.hide();
     }
 }

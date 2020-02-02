@@ -5,24 +5,55 @@ using UnityEngine;
 public class DialoguePromptTrigger : MonoBehaviour
 {
     public TextAsset dialogue;
-    public SpeechAsset speechPrompt;
+    public bool repeatingDialogue;
+
+    private bool dialogueActive;
+
+    private SpeechAsset speechPrompt;
 
     // Update is called once per frame
     void OnTriggerEnter(Collider col)
     {
-        speechPrompt = UIController.deploySpeechPrompt(this.transform.position);
+        displayPrompt();
     }
 
     void OnTriggerExit(Collider col)
     {
-        UIController.hideSpeechPrompt(speechPrompt);
+        hidePrompt();
     }
 
-    private void OnTriggerStay(Collider col)
+    void OnTriggerStay(Collider col)
     {
-        if(Controls.confirmInputDown())
+        if(Controls.confirmInputDown() && !dialogueActive)
         {
-            StartCoroutine(GameManager.instance.StartConversation(dialogue));
+            displayDialogue();
         }
+    }
+
+    private void displayDialogue()
+    {
+        dialogueActive = true;
+        hidePrompt();
+        if (repeatingDialogue)
+            GameManager.instance.StartConversation(dialogue, transform.position, hideDialogue);
+        else
+            GameManager.instance.StartConversation(dialogue, transform.position);
+    }
+
+    private void hideDialogue()
+    {
+        dialogueActive = false;
+        displayPrompt();
+    }
+
+    private void displayPrompt()
+    {
+        speechPrompt = UIController.displaySpeechPrompt(transform.position);
+    }
+
+
+    private void hidePrompt()
+    {
+        UIController.hideSpeechPrompt(speechPrompt);
     }
 }

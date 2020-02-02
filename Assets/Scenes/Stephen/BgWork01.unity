@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 4900000, guid: 9ed3e3c31feaecb448d5e1d6ad4463d1, type: 3}
-  speechPrompt: {fileID: 0}
+  repeatingDialogue: 1
 --- !u!1 &239306075
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577657044f8c3d841af3df72a502ab43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speechBubblePrefab: {fileID: 0}
+  speechBubblePrefab: {fileID: 5286151866013731307, guid: e56999fa30690534ebeda8b78ee5c307,
+    type: 3}
   speechPromptPrefab: {fileID: 2446626285042191379, guid: ad101fde4dc33e64e80c5fde64075587,
     type: 3}
 --- !u!1001 &356026471

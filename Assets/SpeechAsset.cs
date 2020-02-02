@@ -10,6 +10,12 @@ public class SpeechAsset : MonoBehaviour
     public TextMeshPro textMesh;
     public Transform anchorPoint;
 
+    public float displayModifier;
+
+    private void Start()
+    {
+        animator.speed = displayModifier == 0 ? 1 : displayModifier;
+    }
 
     public void deployAt(Vector3 speakerPosition)
     {
