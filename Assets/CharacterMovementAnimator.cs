@@ -17,7 +17,7 @@ public class CharacterMovementAnimator : MonoBehaviour
         Vector3 velocityVector = movement.selfBody.velocity;
         bool isGrounded = Mathf.Abs(velocityVector.y) <= 0.3f;//Temporary y-velocity check bc too lazy to implement proper ECB based isGrounded check
 
-        float speedModifier = velocityVector.magnitude / CharacterMovement.walkVelocity;
+        float speedModifier = velocityVector.magnitude / movement.walkVelocity;
         float bobbingModifier = speedModifier * (isGrounded ? 1 : 0);
 
         animator.SetFloat("SpeedModifier", speedModifier);

@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Character
+  - PlayerCharacter
   - BackgroundSkybox
-  - 
+  - PlayerTriggers
   - 
   - 
   - 

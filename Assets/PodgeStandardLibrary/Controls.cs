@@ -123,6 +123,14 @@ public class Controls {
         return Input.GetButtonDown("Cancel");
     }
 
+    public static bool confirmInputDown()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButtonDown("Confirm");
+    }
+
     public static bool confirmInputHeld()
     {
         if (!gameplayEnabled)
