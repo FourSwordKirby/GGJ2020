@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public void Awake()
     {
-        if (UIController.instance == null)
+        if (GameManager.instance == null)
             instance = this;
         else if (this != instance)
             Destroy(this.gameObject);
@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     internal IEnumerator PlayConversation(TextAsset dialogue, Vector3 speakerPosition, AfterDialogueEvent afterEvent = null)
     {
         ConversationPause();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<CharacterExperssion>().startTalking();
+
         List<string> dialogueLines = DialogueEngine.CreateDialogComponents(dialogue.text);
         DialogueUIController.instance.init(dialogueLines.Count);
 
@@ -37,22 +40,40 @@ public class GameManager : MonoBehaviour
         while(lineTracker < dialogueLines.Count)
         {
             string currentLine = dialogueLines[lineTracker];
-            DialogueUIController.instance.displaySpeechBubble(currentLine, speakerPosition);
-            while (!DialogueUIController.instance.ready)
-                yield return null;
-            while (!Controls.confirmInputDown())
-                yield return null;
+
+            if (currentLine.Substring(0, 12) == "[expression]")
+            {
+                print(currentLine);
+                if(currentLine.Contains("normal"))
+                    player.GetComponent<CharacterExperssion>().changeExpression(CharacterExperssion.Expressions.normal);
+                else if (currentLine.Contains("smile"))
+                    player.GetComponent<CharacterExperssion>().changeExpression(CharacterExperssion.Expressions.smile);
+                else if (currentLine.Contains("yandere"))
+                    player.GetComponent<CharacterExperssion>().changeExpression(CharacterExperssion.Expressions.yandere);
+            }
+            else
+            {
+                DialogueUIController.instance.displaySpeechBubble(currentLine, speakerPosition);
+                while (!DialogueUIController.instance.ready)
+                    yield return null;
+                while (!Controls.confirmInputDown())
+                    yield return null;
+            }
 
             lineTracker++;
         }
         DialogueUIController.instance.finishDialogue();
+        player.GetComponent<CharacterExperssion>().stopTalking();
 
-        afterEvent();
+        while(!DialogueUIController.instance.ready)
+            yield return null;
+
         ConversationUnpause();
+        afterEvent();
         yield return null;
     }
 
-    //hacky gameplay pause implementation for speed
+    //hacky gameplay pause implementation because hackathon
     private void ConversationPause()
     {
         PauseGameplay();

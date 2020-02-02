@@ -19,9 +19,11 @@ public class CharacterMovementAnimator : MonoBehaviour
 
         float speedModifier = velocityVector.magnitude / movement.walkVelocity;
         float bobbingModifier = speedModifier * (isGrounded ? 1 : 0);
+        float swayingModifier = Mathf.Abs(velocityVector.x) / Mathf.Max(velocityVector.magnitude, 1);
 
         animator.SetFloat("SpeedModifier", speedModifier);
         animator.SetFloat("BobbingModifier", bobbingModifier);
+        animator.SetBool("Sway", isGrounded && Mathf.Abs(velocityVector.x) / velocityVector.magnitude > 0.4f);
 
         animator.SetFloat("xDirection", velocityVector.x);
 
@@ -35,8 +37,8 @@ public class CharacterMovementAnimator : MonoBehaviour
 
         if (Controls.jumpInputDown())
         {
-                print("jump");
-                poofParticleSystem.Play();
+            print("jump");
+            poofParticleSystem.Play();
         }
     }
 }
