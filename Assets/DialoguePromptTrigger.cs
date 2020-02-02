@@ -37,9 +37,9 @@ public class DialoguePromptTrigger : MonoBehaviour
         if (repeatingDialogue)
             GameManager.instance.StartConversation(dialogue, transform.position, hideDialogue);
         else
-            GameManager.instance.StartConversation(dialogue, transform.position);
+            GameManager.instance.StartConversation(dialogue, transform.position, destroy);
     }
-
+    
     private void hideDialogue()
     {
         dialogueActive = false;
@@ -55,5 +55,10 @@ public class DialoguePromptTrigger : MonoBehaviour
     private void hidePrompt()
     {
         UIController.hideSpeechPrompt(speechPrompt);
+    }
+
+    private void destroy()
+    {
+        Destroy(gameObject.transform.parent.gameObject);
     }
 }

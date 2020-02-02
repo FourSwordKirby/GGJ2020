@@ -1,8 +1,12 @@
 FillerStatement1
 FillerStatement2
+[expression] normal
 FillerStatement3
 FillerStatement4
+[expression] smile
 FillerStatement5
+[expression] yandere
 FillerStatement6
 Sorry traveler, the Cathedral is currently closed today for repairs.
 Come by tomorrow and we should be accepting visitors.
+[expression] normal
