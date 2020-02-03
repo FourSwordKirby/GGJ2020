@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestManager : MonoBehaviour
 {
@@ -166,6 +167,8 @@ public class QuestManager : MonoBehaviour
         CharacterMovement charMove = FindObjectOfType<CharacterMovement>();
         charMove.OverrideMovementVector = Vector2.left;
         StartCoroutine(RestoreCharacterControls(3.5f));
+
+        StartCoroutine(RestartGame());
     }
 
     public IEnumerator RestoreCharacterControls(float waitTime)
@@ -173,5 +176,18 @@ public class QuestManager : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         CharacterMovement charMove = FindObjectOfType<CharacterMovement>();
         charMove.OverrideMovementVector = Vector2.zero;
+    }
+
+    public IEnumerator RestartGame()
+    {
+        AudioSource audio = FindObjectOfType<AudioSource>();
+        while (audio.volume > 0)
+        {
+            audio.volume -= Time.deltaTime / 3f;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
