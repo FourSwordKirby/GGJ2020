@@ -1,0 +1,3 @@
+[expression] think
+Isabelle: Hmmm, my sewing kit isn't this way
+[expression] normal
