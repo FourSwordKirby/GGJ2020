@@ -123,6 +123,14 @@ public class CameraMan : MonoBehaviour
             // Do nothing if no other mode is enabled.
         }
     }
+    
+    //Used to wait for the camera to get into position so that we can determine where to put the speech bubble
+    //This approach is flawed as we should ideally know where the speech bubbles should go given the position of the camera and the actors. 
+    //In the future we should be able to do this check without having to wait for the camera to get into position
+    public bool InDesiredPosition()
+    {
+        return (MyCamera.transform.position - TargetPosition).magnitude < 0.1f;
+    }
 
     public void MoveCameraToDefault()
     {

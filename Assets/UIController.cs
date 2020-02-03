@@ -24,10 +24,10 @@ public class UIController : MonoBehaviour
         staticSpeechPromptPrefab = speechPromptPrefab;
     }
 
-    public static SpeechAsset displaySpeechPrompt(Vector3 speakerPosition)
+    public static SpeechAsset displaySpeechPrompt(Vector3 speakerPosition, bool onLeftSide)
     {
         SpeechAsset speechPrompt = Instantiate(staticSpeechPromptPrefab).GetComponent<SpeechAsset>();
-        speechPrompt.deployAt(speakerPosition);
+        speechPrompt.deployAt(speakerPosition, onLeftSide);
 
         return speechPrompt;
     }
@@ -37,11 +37,11 @@ public class UIController : MonoBehaviour
         speechPrompt.hide();
     }
 
-    public static SpeechAsset displaySpeechBubble(string text, Vector3 speakerPosition)
+    public static SpeechAsset displaySpeechBubble(string text, Vector3 speakerPosition, bool onLeftSide)
     {
         SpeechAsset speechBubble = Instantiate(staticSpeechBubblePrefab).GetComponent<SpeechAsset>();
         speechBubble.setText(text);
-        speechBubble.deployAt(speakerPosition);
+        speechBubble.deployAt(speakerPosition, onLeftSide);
 
         return speechBubble;
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterExperssion : MonoBehaviour
+public class CharacterExpressionAnimator : MonoBehaviour
 {
     public Animator animator;
 
@@ -14,19 +14,8 @@ public class CharacterExperssion : MonoBehaviour
 
     public Expressions? targetExpression = null;
 
-    public void startTalking()
-    {
-        animator.SetBool("Talking", true);
-    }
-
-    public void stopTalking()
-    {
-        animator.SetBool("Talking", false);
-    }
-
     public void changeExpression(Expressions expression)
     {
-        print("called");
         targetExpression = expression;
         animator.SetTrigger("NormalExpression");
     }

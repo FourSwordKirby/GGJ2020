@@ -57,16 +57,26 @@ public class DialogueUIController : MonoBehaviour
         ready = true;
     }
 
+    //We need to wait for the camera to get into position so that we can determine where to put the speech bubble
+    //This approach is flawed as we should ideally know where the speech bubbles should go given the position of the camera and the actors. 
+    //In the future we should be able to do this check without having to wait for the camera to get into position
     public void displaySpeechBubble(string text, Vector3 speakerPosition)
     {
         ready = false;
-        StartCoroutine(animateLogs(text, speakerPosition));
+        Vector2 speakerScrenPosition = Camera.main.WorldToScreenPoint(speakerPosition);
+
+        bool onLeftSide;
+        if (speakerScrenPosition.x < Camera.main.pixelWidth / 2.0f)
+            onLeftSide = false;
+        else
+            onLeftSide = true;
+        StartCoroutine(animateLogs(text, speakerPosition, onLeftSide));
     }
 
-    IEnumerator animateLogs(string text, Vector3 speakerPosition)
+    IEnumerator animateLogs(string text, Vector3 speakerPosition, bool onLeftSide)
     {
         //crappy concurrency lol
-        SpeechAsset speechBubble = UIController.displaySpeechBubble(text, speakerPosition);
+        SpeechAsset speechBubble = UIController.displaySpeechBubble(text, speakerPosition, onLeftSide);
         speechBubble.focus();
 
         float logTweenTime = 0.2f;
@@ -97,7 +107,6 @@ public class DialogueUIController : MonoBehaviour
         }
 
         speechBubbles.Add(speechBubble);
-
         speechBubbleTracker = speechBubbles.Count;
 
         yield return new WaitForSeconds(0.2f);
