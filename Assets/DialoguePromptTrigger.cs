@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialoguePromptTrigger : MonoBehaviour
 {
     public TextAsset dialogue;
     public bool repeatingDialogue;
     public bool forceDialogueOnEnter = false;
+    public bool forceBack;
     public Transform desiredSpeaker;
     public Transform cameraPosition;
+
+    public UnityEvent questEvent;
 
     private bool dialogueActive;
 
@@ -17,10 +21,12 @@ public class DialoguePromptTrigger : MonoBehaviour
     // Update is called once per frame
     void OnTriggerEnter(Collider col)
     {
+        if (forceBack)
+            col.attachedRigidbody.velocity =(col.transform.position - transform.position) * 2;
+
         if (forceDialogueOnEnter)
         {
             displayDialogue();
-
         }
         else
         {
@@ -61,8 +67,10 @@ public class DialoguePromptTrigger : MonoBehaviour
     
     private void hideDialogue()
     {
+        questEvent?.Invoke();
         dialogueActive = false;
-        displayPrompt();
+        if(!forceDialogueOnEnter)
+            displayPrompt();
     }
 
     private void displayPrompt()
@@ -91,6 +99,7 @@ public class DialoguePromptTrigger : MonoBehaviour
 
     private void destroy()
     {
+        questEvent?.Invoke();
         Destroy(gameObject.transform.parent.gameObject);
     }
 }
