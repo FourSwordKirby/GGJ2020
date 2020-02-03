@@ -4549,6 +4549,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 392150885}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &399828343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5932829281497447740, guid: fbcfb14599707e2499bfbe397f90fd3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1784010895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &404023225
 GameObject:
   m_ObjectHideFlags: 0
@@ -10405,7 +10411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771628592}
   m_LocalRotation: {x: 0.1462312, y: -0, z: -0, w: 0.9892505}
-  m_LocalPosition: {x: 0, y: 2.7616544, z: 0.057211876}
+  m_LocalPosition: {x: 0, y: 2.761654, z: 0.057211876}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1233082608}
@@ -18956,10 +18962,10 @@ MonoBehaviour:
   LowZTransform: {fileID: 1690657214}
   HighZTransform: {fileID: 961961025}
   DeadZone:
-    m_Center: {x: 13.48, y: 0.39999995, z: -0.21999979}
+    m_Center: {x: 34.75, y: 0.5900001, z: -0.21999979}
     m_Extent: {x: 1, y: 1, z: 3}
   OffsetVectorToTrackedTransform: {x: 0, y: 0.26, z: 6.28}
-  TargetPosition: {x: 13.48, y: 0.13999996, z: -6.5}
+  TargetPosition: {x: 34.75, y: 0.3300001, z: -6.5}
   TargetRotation: {x: 0, y: 0, z: 0, w: 1}
   TranslatationLerpFactor: 0.05
   RotationLerpFactor: 0.05
@@ -18971,7 +18977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233082606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.48, y: 0.13999996, z: -6.5}
+  m_LocalPosition: {x: 34.75, y: 0.3300001, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 771628595}
@@ -19599,6 +19605,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278516203}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1291592155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1291592156}
+  m_Layer: 0
+  m_Name: Isabelle StartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1291592156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291592155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.42, y: 0.76, z: -0.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1294327621
 GameObject:
   m_ObjectHideFlags: 0
@@ -23247,6 +23283,12 @@ Transform:
   m_Father: {fileID: 103097542}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 18.54, y: -22.277, z: 0}
+--- !u!1 &1517333255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5932829281497447740, guid: fbcfb14599707e2499bfbe397f90fd3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1989160373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1518549193
 GameObject:
   m_ObjectHideFlags: 0
@@ -23991,6 +24033,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114192062918017170, guid: 8490386e6898afa4691cab39c01ca4bc,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5530946660503106705, guid: 8490386e6898afa4691cab39c01ca4bc,
         type: 3}
       propertyPath: m_Name
@@ -23999,12 +24046,12 @@ PrefabInstance:
     - target: {fileID: 6980949529970985255, guid: 8490386e6898afa4691cab39c01ca4bc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.48
+      value: 34.15
       objectReference: {fileID: 0}
     - target: {fileID: 6980949529970985255, guid: 8490386e6898afa4691cab39c01ca4bc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6980949529970985255, guid: 8490386e6898afa4691cab39c01ca4bc,
         type: 3}
@@ -31542,13 +31589,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableStartEvent: 1
+  IsabelleStartPoint: {fileID: 1291592156}
   RabbitReminderTrigger: {fileID: 1559834577}
   BridgeReminderTrigger: {fileID: 892010799}
   NoRockPickupTrigger: {fileID: 1925643597}
   RockPickupTrigger: {fileID: 1969887244}
   DestroyStatueTrigger: {fileID: 1797457084}
+  CathedralStatueTrigger: {fileID: 1517333255}
+  CathedralStatueLoopTrigger: {fileID: 399828343}
   MrBoulder: {fileID: 453729054}
   BrokenMrBoulder: {fileID: 1927508593}
+  PsiSoundEffect: {fileID: 8300000, guid: ff9f240857241fc4c8618a7f13359ca5, type: 3}
+  ExplosionSoundEffect: {fileID: 8300000, guid: f7bbb5eb1b1ab4d41be7aee0a2d4c25e,
+    type: 3}
 --- !u!4 &2066142638
 Transform:
   m_ObjectHideFlags: 0

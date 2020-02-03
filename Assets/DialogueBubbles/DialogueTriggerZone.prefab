@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5932829280698991748}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -107,8 +107,12 @@ MonoBehaviour:
   dialogue: {fileID: 4900000, guid: 9ed3e3c31feaecb448d5e1d6ad4463d1, type: 3}
   repeatingDialogue: 1
   forceDialogueOnEnter: 0
+  forceBack: 0
   desiredSpeaker: {fileID: 0}
   cameraPosition: {fileID: 0}
+  questEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5932829281497447740
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +192,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5932829282201664395}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

@@ -2,11 +2,11 @@
 Isabelle: Why is there a new Mr. Boulder?
 [expression] normal
 Step aside.
-MrBoulder: No can do, Isabella.
+MrBoulder: I cannot permit that, Isabella.
 Even if Master Dianna is no longer with us, I will continue to resist you. 
-Isabelle: I have to fix something… move.
-MrBoulder: There’s so little left in the cathedral.
-You need to stop.
+Isabelle: I have to fix something... move.
+MrBoulder: There's so little energy left in the cathedral.
+We have no more to spare for repairs.
 [expression] yandere
 Isabelle: But there’s something I have to fix…
 [expression] normal

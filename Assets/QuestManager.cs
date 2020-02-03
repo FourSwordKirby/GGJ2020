@@ -5,17 +5,24 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     public bool EnableStartEvent = false;
+    public Transform IsabelleStartPoint;
 
     public GameObject RabbitReminderTrigger;
     public GameObject BridgeReminderTrigger;
     public GameObject NoRockPickupTrigger;
     public GameObject RockPickupTrigger;
     public GameObject DestroyStatueTrigger;
+    public GameObject CathedralStatueTrigger;
+    public GameObject CathedralStatueLoopTrigger;
 
     public GameObject MrBoulder;
     public GameObject BrokenMrBoulder;
 
     public static QuestManager instance;
+
+    public AudioClip PsiSoundEffect;
+    public AudioClip ExplosionSoundEffect;
+
     public void Awake()
     {
         if (instance == null)
@@ -28,6 +35,8 @@ public class QuestManager : MonoBehaviour
         NoRockPickupTrigger.SetActive(true);
         RockPickupTrigger.SetActive(false);
         DestroyStatueTrigger.SetActive(false);
+        CathedralStatueTrigger.SetActive(false);
+        CathedralStatueLoopTrigger.SetActive(false);
     }
 
     public void Start()
@@ -39,6 +48,9 @@ public class QuestManager : MonoBehaviour
     {
         if (EnableStartEvent)
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.transform.CopyValues(IsabelleStartPoint);
+
             WhiteOutCanvas canvas = FindObjectOfType<WhiteOutCanvas>();
             canvas.GetComponent<Animator>().SetTrigger("Black");
             RabbitReminderTrigger.SetActive(false);
@@ -66,16 +78,20 @@ public class QuestManager : MonoBehaviour
     public void VisitBridge()
     {
         Destroy(BridgeReminderTrigger);
+        CathedralStatueTrigger.SetActive(true);
     }
 
     public void talkToStatue()
     {
         Destroy(NoRockPickupTrigger);
+        CathedralStatueLoopTrigger.SetActive(true);
         RockPickupTrigger.SetActive(true);
     }
 
     public void PickUpRock()
     {
+        Destroy(CathedralStatueLoopTrigger);
+
         DestroyStatueTrigger.SetActive(true);
 
         BrokenThingScript thing = FindObjectOfType<BrokenThingScript>();
@@ -83,6 +99,10 @@ public class QuestManager : MonoBehaviour
         thing.transform.SetParent(player.transform, true);
         Animator thingAnim = thing.GetComponent<Animator>();
         thingAnim.SetTrigger("Hover");
+
+        AudioSource sfx = FindObjectOfType<AudioSource>();
+        sfx.PlayOneShot(PsiSoundEffect);
+
         StartCoroutine(MoveRockToPlayerCoroutine(thing));
     }
 
@@ -117,8 +137,13 @@ public class QuestManager : MonoBehaviour
 
     public IEnumerator DestoryStatueAnimation()
     {
+        // Time to impact (assuming everything lines up.
+        yield return new WaitForSeconds(2f);
+        AudioSource sfx = FindObjectOfType<AudioSource>();
+        sfx.PlayOneShot(ExplosionSoundEffect);
+
         // This is the time for the canvas to turn full white.
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
 
         // Break Mr. Boulder while the screen is white
         MrBoulder.SetActive(false);
