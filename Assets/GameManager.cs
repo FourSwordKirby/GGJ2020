@@ -35,14 +35,7 @@ public class GameManager : MonoBehaviour
         ConversationPause();
         CameraMan cameraMan = FindObjectOfType<CameraMan>();
         if (cameraPosition != null)
-        {
             cameraMan.StartCinematicMode(cameraPosition);
-            //We wait for the camera to get into position so that we can determine where to put the speech bubble
-            //This approach is flawed as we should ideally know where the speech bubbles should go given the position of the camera and the actors. 
-            //In the future we should be able to do this check without having to wait for the camera to get into position
-            while (!cameraMan.InDesiredPosition())
-                yield return null;
-        }
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterDialogueAnimator>().startTalking();

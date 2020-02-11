@@ -24,31 +24,31 @@ public class UIController : MonoBehaviour
         staticSpeechPromptPrefab = speechPromptPrefab;
     }
 
-    public static SpeechAsset displaySpeechPrompt(Vector3 speakerPosition, bool onLeftSide)
+    public static SpeechAsset displaySpeechPrompt(Vector3 speakerPosition, Vector2 displacementVector)
     {
         SpeechAsset speechPrompt = Instantiate(staticSpeechPromptPrefab).GetComponent<SpeechAsset>();
-        speechPrompt.deployAt(speakerPosition, onLeftSide);
+        speechPrompt.DeployAt(speakerPosition, displacementVector);
 
         return speechPrompt;
     }
 
     public static void hideSpeechPrompt(SpeechAsset speechPrompt)
     {
-        speechPrompt.hide();
+        speechPrompt.Hide();
     }
 
-    public static SpeechAsset displaySpeechBubble(string text, Vector3 speakerPosition, bool onLeftSide)
+    public static SpeechAsset displaySpeechBubble(string text, Vector3 speakerPosition, Vector2 displacementVector)
     {
         SpeechAsset speechBubble = Instantiate(staticSpeechBubblePrefab).GetComponent<SpeechAsset>();
-        speechBubble.setText(text);
-        speechBubble.deployAt(speakerPosition, onLeftSide);
+        speechBubble.SetText(text);
+        speechBubble.DeployAt(speakerPosition, displacementVector);
 
         return speechBubble;
     }
 
     public static void hideSpeechBubble(SpeechAsset speechBubble)
     {
-        speechBubble.blur();
-        speechBubble.hide();
+        speechBubble.Blur();
+        speechBubble.Hide();
     }
 }

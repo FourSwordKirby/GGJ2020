@@ -45,7 +45,7 @@ public class DialogueUIController : MonoBehaviour
     {
         ready = false;
         for (int i = 0; i < speechBubbles.Count; i++)
-            speechBubbles[i].hide();
+            speechBubbles[i].Hide();
         StartCoroutine(cleanup());
     }
 
@@ -53,31 +53,31 @@ public class DialogueUIController : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
         for (int i = 0; i < speechBubbles.Count; i++)
-            speechBubbles[i].destroy();
+            speechBubbles[i].Destroy();
         ready = true;
     }
 
     //We need to wait for the camera to get into position so that we can determine where to put the speech bubble
     //This approach is flawed as we should ideally know where the speech bubbles should go given the position of the camera and the actors. 
     //In the future we should be able to do this check without having to wait for the camera to get into position
+    public Camera dialogueCamera;
     public void displaySpeechBubble(string text, Vector3 speakerPosition)
     {
         ready = false;
-        Vector2 speakerScrenPosition = Camera.main.WorldToScreenPoint(speakerPosition);
+        Vector2 speakerScrenPosition = dialogueCamera.WorldToScreenPoint(speakerPosition);
 
-        bool onLeftSide;
-        if (speakerScrenPosition.x < Camera.main.pixelWidth / 2.0f)
-            onLeftSide = false;
-        else
-            onLeftSide = true;
-        StartCoroutine(animateLogs(text, speakerPosition, onLeftSide));
+        float relativeXdisplacment = (Camera.main.pixelWidth / 2.0f - speakerScrenPosition.x) / Camera.main.pixelWidth;
+        float relativeYdisplacment = (Camera.main.pixelHeight / 2.0f - speakerScrenPosition.y) / Camera.main.pixelHeight + 0.1f; // The dialogue should always be in the upper portion of the screen 
+                                                                                                                                  // *(offscreen dialogue we will need to handle seperately)
+        StartCoroutine(animateLogs(text, speakerPosition, new Vector2(relativeXdisplacment, relativeYdisplacment)));
     }
 
-    IEnumerator animateLogs(string text, Vector3 speakerPosition, bool onLeftSide)
+
+    IEnumerator animateLogs(string text, Vector3 speakerPosition, Vector2 displacementVector)
     {
         //crappy concurrency lol
-        SpeechAsset speechBubble = UIController.displaySpeechBubble(text, speakerPosition, onLeftSide);
-        speechBubble.focus();
+        SpeechAsset speechBubble = UIController.displaySpeechBubble(text, speakerPosition, displacementVector);
+        speechBubble.Focus();
 
         float logTweenTime = 0.2f;
         float delta = z_offset / logTweenTime * Time.deltaTime;
@@ -103,7 +103,7 @@ public class DialogueUIController : MonoBehaviour
                 yield return null;
             }
             for (int i = 0; i < speechBubbles.Count; i++)
-                speechBubbles[i].blur();
+                speechBubbles[i].Blur();
         }
 
         speechBubbles.Add(speechBubble);

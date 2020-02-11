@@ -24,10 +24,11 @@ public class SpeechAsset : MonoBehaviour
 
     //currently the bubble only displays facing left or right depending on the argument
     //in the future we want it to display based on any number of relative positions.
-    public void deployAt(Vector3 speakerPosition, bool isLeftSide)
+    public void DeployAt(Vector3 speakerPosition, Vector2 displacementVector)
     {
         animator.SetBool("Deployed", true);
-        if(isLeftSide)
+
+        if(displacementVector.x < 0)
             this.transform.position = speakerPosition - anchorPoint.localPosition;
         else
         {
@@ -36,33 +37,33 @@ public class SpeechAsset : MonoBehaviour
         }
     }
 
-    public void focus()
+    public void Focus()
     {
         textFrame.material.color = focusColor;
     }
 
-    public void blur()
+    public void Blur()
     {
         textFrame.material.color = blurColor;
     }
 
-    public void hide()
+    public void Hide()
     {
         animator.SetBool("Deployed", false);
     }
 
-    public void setText(string text)
+    public void SetText(string text)
     {
         textMesh.text = text;
     }
 
-    public void cleanup()
+    public void Cleanup()
     {
         if (!loggable)
-            destroy();
+            Destroy();
     }
 
-    public void destroy()
+    public void Destroy()
     {
         Destroy(this.gameObject);
     }

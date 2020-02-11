@@ -14,6 +14,7 @@ public class CameraMan : MonoBehaviour
     }
 
     public Camera MyCamera;
+    public Camera ProjectedCamera;
 
     public bool EnableInEditMode = false;
     public bool EnableTransformTracking = true;
@@ -49,6 +50,10 @@ public class CameraMan : MonoBehaviour
         IsCinematic = true;
         TargetPosition = cameraPosition.position;
         TargetRotation = cameraPosition.rotation;
+
+        //make sure the projected Camera is always in the final desired position for accurate worldToScreen tracking
+        ProjectedCamera.transform.position = TargetPosition;
+        ProjectedCamera.transform.rotation = TargetRotation;
     }
 
     public void EndCinematicMode()
@@ -59,6 +64,10 @@ public class CameraMan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //make sure the projected Camera is always in the final desired position for accurate worldToScreen tracking
+        ProjectedCamera.transform.position = TargetPosition;
+        ProjectedCamera.transform.rotation = TargetRotation;
+
         // Allow camera logic in Editor if EnableInEditMode is true
         if (!Application.isPlaying && !EnableInEditMode)
         {
@@ -83,9 +92,9 @@ public class CameraMan : MonoBehaviour
             if (!DeadZone.Contains(TransformToTrack.position))
             {
                 Vector3 closestPoint = DeadZone.ClosestPoint(TransformToTrack.position);
-                Debug.Log($"Closest Point: {closestPoint}");
+                //Debug.Log($"Closest Point: {closestPoint}");
                 Vector3 moveAmount = TransformToTrack.position - closestPoint;
-                Debug.Log($"Camera moveAmount: {moveAmount}");
+                //Debug.Log($"Camera moveAmount: {moveAmount}");
                 TargetPosition = this.transform.position + moveAmount;
             }
             else

@@ -9,18 +9,21 @@ public class DialoguePromptTrigger : MonoBehaviour
     public bool repeatingDialogue;
     public bool forceDialogueOnEnter = false;
     public bool forceBack;
-    public Transform desiredSpeaker;
+    public Transform promptPosition;
     public Transform cameraPosition;
+
 
     public UnityEvent questEvent;
 
+    private Vector3 triggerEnteredPosition;
     private bool dialogueActive;
-
     private SpeechAsset speechPrompt;
 
     // Update is called once per frame
     void OnTriggerEnter(Collider col)
     {
+        triggerEnteredPosition = col.gameObject.transform.position;
+
         if (forceBack)
             col.attachedRigidbody.velocity =(col.transform.position - transform.position) * 2;
 
@@ -30,7 +33,7 @@ public class DialoguePromptTrigger : MonoBehaviour
         }
         else
         {
-            displayPrompt();
+            displayPrompt(promptPosition.position - triggerEnteredPosition);
         }
     }
 
@@ -53,11 +56,6 @@ public class DialoguePromptTrigger : MonoBehaviour
         hidePrompt();
 
         Vector3 speakerPosition = transform.position;
-        if (desiredSpeaker != null)
-        {
-            // Add 1 unit up so that the speech bubble is in a reasonable spot.
-            speakerPosition = desiredSpeaker.position + Vector3.up * 1f;
-        }
 
         if (repeatingDialogue)
             GameManager.instance.StartConversation(dialogue, speakerPosition, cameraPosition, hideDialogue);
@@ -70,20 +68,13 @@ public class DialoguePromptTrigger : MonoBehaviour
         questEvent?.Invoke();
         dialogueActive = false;
         if(!forceDialogueOnEnter)
-            displayPrompt();
+            displayPrompt(Vector3.zero);
     }
 
-    private void displayPrompt()
+    private void displayPrompt(Vector3 triggerEnteredPosition)
     {
-        Vector2 speakerScrenPosition = Camera.main.WorldToScreenPoint(transform.position);
-
-        bool onLeftSide;
-        if (speakerScrenPosition.x < Camera.main.pixelWidth / 2.0f)
-            onLeftSide = false;
-        else
-            onLeftSide = true;
-
-        speechPrompt = UIController.displaySpeechPrompt(transform.position, onLeftSide);
+        Vector3 displacementVector = Vector3.Scale(triggerEnteredPosition, -Vector3.one);
+        speechPrompt = UIController.displaySpeechPrompt(promptPosition.position, displacementVector);
     }
 
 
