@@ -24,6 +24,8 @@ public class SpeechAsset : MonoBehaviour
 
     //currently the bubble only displays facing left or right depending on the argument
     //in the future we want it to display based on any number of relative positions.
+    //at the very least, it should make sure that it is visible on camera and can be positioned over
+    //the center of the relevant character
     public void DeployAt(Vector3 speakerPosition, Vector2 displacementVector)
     {
         animator.SetBool("Deployed", true);

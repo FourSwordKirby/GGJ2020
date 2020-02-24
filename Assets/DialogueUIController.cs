@@ -57,9 +57,6 @@ public class DialogueUIController : MonoBehaviour
         ready = true;
     }
 
-    //We need to wait for the camera to get into position so that we can determine where to put the speech bubble
-    //This approach is flawed as we should ideally know where the speech bubbles should go given the position of the camera and the actors. 
-    //In the future we should be able to do this check without having to wait for the camera to get into position
     public Camera dialogueCamera;
     public void displaySpeechBubble(string text, Vector3 speakerPosition)
     {
@@ -110,7 +107,8 @@ public class DialogueUIController : MonoBehaviour
         speechBubbleTracker = speechBubbles.Count;
 
         yield return new WaitForSeconds(0.2f);
-
+        while (!Controls.confirmInputDown())
+            yield return null;
         ready = true;
     }
 }

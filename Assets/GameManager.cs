@@ -26,10 +26,11 @@ public class GameManager : MonoBehaviour
 
     public void StartConversation(TextAsset dialogue, Vector3 speakerPosition, Transform cameraPosition = null, AfterDialogueEvent afterEvent = null)
     {
-        StartCoroutine(PlayConversation(dialogue, cameraPosition, afterEvent));
+        Dialogue processedDialogue = new Dialogue(dialogue.text);
+        StartCoroutine(PlayConversation(processedDialogue, cameraPosition, afterEvent));
     }
 
-    internal IEnumerator PlayConversation(TextAsset dialogue, Transform cameraPosition = null, AfterDialogueEvent afterEvent = null)
+    internal IEnumerator PlayConversation(Dialogue dialogue, Transform cameraPosition = null, AfterDialogueEvent afterEvent = null)
     {
         // If a special camera position was provided, tell the camera man to use it.
         ConversationPause();
@@ -40,15 +41,19 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterDialogueAnimator>().startTalking();
 
-        List<string> dialogueLines = DialogueEngine.CreateDialogComponents(dialogue.text);
-        DialogueUIController.instance.init(dialogueLines.Count);
+        DialogueUIController.instance.init(dialogue.dialogueLineCount);
 
-        Dictionary<string, DialogueAnimator> speakerDict = DialogueEngine.GetSpeakers(dialogue.text).ToDictionary(x => x, x => GameObject.Find(x).GetComponent<DialogueAnimator>());
+        //Dictionary<string, DialogueAnimator> speakerDict = DialogueEngine.GetSpeakers(dialogue.text).ToDictionary(x => x, x => GameObject.Find(x).GetComponent<DialogueAnimator>());
 
-        int lineTracker = 0;
-        string currentSpeaker = "";
-        while (lineTracker < dialogueLines.Count)
+        //int lineTracker = 0;
+        //string currentSpeaker = "";
+        while (!dialogue.IsFinished)
         {
+            ScriptLine line = dialogue.GetNextLine();
+            line.PerformLine();
+            while (!line.IsFinished())
+                yield return null;
+            /*
             string currentLine = dialogueLines[lineTracker];
             if (currentLine.StartsWith("[expression]"))
             {
@@ -70,11 +75,9 @@ public class GameManager : MonoBehaviour
                 DialogueUIController.instance.displaySpeechBubble(spokenLine, speakerPosition);
                 while (!DialogueUIController.instance.ready)
                     yield return null;
-                while (!Controls.confirmInputDown())
-                    yield return null;
             }
-
             lineTracker++;
+            */
         }
         DialogueUIController.instance.finishDialogue();
         player.GetComponent<CharacterDialogueAnimator>().stopTalking();

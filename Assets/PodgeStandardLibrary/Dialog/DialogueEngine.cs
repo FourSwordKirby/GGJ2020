@@ -4,38 +4,48 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class DialogueEngine : MonoBehaviour
+public class DialogueEngine
 {
-    public static DialogueEngine instance;
-
-    public void Awake()
+    public static List<ScriptLine> CreateDialogueComponents(string text)
     {
-        if (instance == null)
-            instance = this;
-        else if (this != instance)
-            Destroy(this.gameObject);
-    }
+        List<string> rawLines = new List<string>(text.Split('\n'));
+        rawLines = rawLines.Select(x => x.Trim()).ToList();
+        rawLines = rawLines.Where(x => x != "").ToList();
 
-    public static List<string> CreateDialogComponents(string text)
-    {
-        List<string> dialogComponents = new List<string>(text.Split('\n'));
-        dialogComponents = dialogComponents.Select(x => x.Trim()).ToList();
-        dialogComponents = dialogComponents.Where(x => x != "").ToList();
-        return dialogComponents;
-    }
+        List<ScriptLine> processedLines = new List<ScriptLine>();
 
-    internal static HashSet<string> GetSpeakers(string text)
-    {
-        HashSet<string> speakers = new HashSet<string>();
-
-        List<string> dialogComponents = CreateDialogComponents(text);
-        foreach (string line in dialogComponents)
+        string currentSpeaker = "";
+        for(int i = 0; i < rawLines.Count; i++)
         {
-            string speaker = GetSpeaker(line);
-            if(speaker != "")
-                speakers.Add(speaker);
+            ScriptLine processedLine = null;
+
+            string line = rawLines[i];
+            switch (GetLineType(line))
+            {
+                case LineType.SpeakingLine:
+                    string speaker = GetSpeaker(line);
+                    if (speaker != "")
+                        currentSpeaker = speaker;
+                    else if (currentSpeaker == "")
+                        Debug.LogWarning("Speaker not specified");
+                    processedLine = new SpeakingLine(currentSpeaker, GetSpokenLine(line));
+                    break;
+                case LineType.Instruction:
+                    processedLine = new InstructionLine(line);
+                    break;
+            }
+            processedLines.Add(processedLine);
         }
-        return speakers;
+
+        return processedLines;
+    }
+
+    static LineType GetLineType(string line)
+    {
+        if (line.StartsWith("[expression]"))
+            return LineType.Instruction;
+        else
+           return LineType.SpeakingLine;
     }
 
     public static string GetSpeaker(string line)
@@ -56,5 +66,11 @@ public class DialogueEngine : MonoBehaviour
             return dialoguePieces[1];
         else
             return line;
+    }
+
+    enum LineType
+    {
+        SpeakingLine,
+        Instruction
     }
 }
