@@ -37,12 +37,21 @@ public class UIController : MonoBehaviour
         speechPrompt.Hide();
     }
 
-    public static SpeechAsset displaySpeechBubble(string text, Vector3 speakerPosition, Vector2 displacementVector)
+    public static void DeploySpeechBubbleAt(SpeechAsset speechBubble, Vector3 speakerPosition, Vector2 displacementVector)
+    {
+        speechBubble.gameObject.SetActive(true);
+        speechBubble.DeployAt(speakerPosition, displacementVector);
+    }
+
+    public static void DeploySpeechBubble(SpeechAsset speechBubble)
+    {
+        speechBubble.Deploy();
+    }
+
+    public static SpeechAsset GenerateSpeechBubble()
     {
         SpeechAsset speechBubble = Instantiate(staticSpeechBubblePrefab).GetComponent<SpeechAsset>();
-        speechBubble.SetText(text);
-        speechBubble.DeployAt(speakerPosition, displacementVector);
-
+        speechBubble.gameObject.SetActive(false);
         return speechBubble;
     }
 

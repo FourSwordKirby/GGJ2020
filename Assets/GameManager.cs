@@ -41,18 +41,31 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterDialogueAnimator>().startTalking();
 
-        DialogueUIController.instance.init(dialogue.dialogueLineCount);
+        DialogueUIController.instance.init(dialogue);
 
         //Dictionary<string, DialogueAnimator> speakerDict = DialogueEngine.GetSpeakers(dialogue.text).ToDictionary(x => x, x => GameObject.Find(x).GetComponent<DialogueAnimator>());
 
-        //int lineTracker = 0;
+        int lineTracker = 0;
         //string currentSpeaker = "";
         while (!dialogue.IsFinished)
         {
             ScriptLine line = dialogue.GetNextLine();
             line.PerformLine();
             while (!line.IsFinished())
+            {
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    lineTracker--;
+                    StartCoroutine(DialogueUIController.instance.animateLogs(lineTracker));
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    lineTracker++;
+                    StartCoroutine(DialogueUIController.instance.animateLogs(lineTracker));
+                }
                 yield return null;
+            }
+            lineTracker++;
             /*
             string currentLine = dialogueLines[lineTracker];
             if (currentLine.StartsWith("[expression]"))

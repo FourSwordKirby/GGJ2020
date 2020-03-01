@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Dialogue
 {
     List<ScriptLine> lines;
-    List<ScriptLine> unreadLines;
+    public int readCount;
     public int currentPosition;
-    public bool IsFinished { get => unreadLines.Count == 0; }
+    public bool IsFinished { get => readCount == lines.Count; }
 
     //temporary variables for getting this working with the current implementation
-    public int dialogueLineCount { get => lines.Count; }
+    public int speakingLineCount {
+        get => lines.Where(x => x.GetLineType() == DialogueEngine.LineType.SpeakingLine).ToList().Count;
+    }
 
     public Dialogue (string fullDialogue)
     {
         lines = DialogueEngine.CreateDialogueComponents(fullDialogue);
-        unreadLines = lines;
+        readCount = 0;
         currentPosition = 0;
     }
 
     public void Init()
     {
-        unreadLines = lines;
+        readCount = 0;
         currentPosition = 0;
     }
 
     public ScriptLine GetNextLine()
     {
         ScriptLine line = lines[currentPosition];
-        unreadLines.Remove(line);
+        readCount++;
         currentPosition++;
 
         return line;

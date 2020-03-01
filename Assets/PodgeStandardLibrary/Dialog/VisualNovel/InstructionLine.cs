@@ -16,14 +16,20 @@ public class InstructionLine : ScriptLine
         }
     }
 
+    //Change this based on the game implementation
     public override void PerformLine()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterDialogueAnimator>().changeExpression(desiredExpression);
     }
 
-    internal override bool IsFinished()
+    public override bool IsFinished()
     {
         return true;
+    }
+
+    public override DialogueEngine.LineType GetLineType()
+    {
+        return DialogueEngine.LineType.SpeakingLine;
     }
 }

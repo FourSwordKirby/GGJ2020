@@ -15,6 +15,7 @@ public class DialogueEngine
         List<ScriptLine> processedLines = new List<ScriptLine>();
 
         string currentSpeaker = "";
+        int speakingLineNumber = 0;
         for(int i = 0; i < rawLines.Count; i++)
         {
             ScriptLine processedLine = null;
@@ -28,7 +29,8 @@ public class DialogueEngine
                         currentSpeaker = speaker;
                     else if (currentSpeaker == "")
                         Debug.LogWarning("Speaker not specified");
-                    processedLine = new SpeakingLine(currentSpeaker, GetSpokenLine(line));
+                    processedLine = new SpeakingLine(currentSpeaker, GetSpokenLine(line), speakingLineNumber);
+                    speakingLineNumber++;
                     break;
                 case LineType.Instruction:
                     processedLine = new InstructionLine(line);
@@ -68,7 +70,7 @@ public class DialogueEngine
             return line;
     }
 
-    enum LineType
+    public enum LineType
     {
         SpeakingLine,
         Instruction

@@ -7,10 +7,11 @@ using Random = UnityEngine.Random;
 public class DialogueUIController : MonoBehaviour
 {
     private List<SpeechAsset> speechBubbles = new List<SpeechAsset>();
-    private int onScreenSpeechBubbleLimit = 5;
-    private int speechBubbleTracker = 0;
+    private int onScreenSpeechBubbleLimit = 2;
+    private int currentLineNumber = 0;
     private int z_offset = 1;
 
+    public Dialogue activeDialogue;
     public bool ready;
 
     private List<float> randomSeedsX;
@@ -27,15 +28,20 @@ public class DialogueUIController : MonoBehaviour
     }
 
     //This hacky implementation is kind of bad but I really don't want to mess with making the animator do this
-    public void init(int maxLogLength)
+    public void init(Dialogue dialogue)
     {
-        speechBubbles = new List<SpeechAsset>();
+        currentLineNumber = dialogue.currentPosition;
+        activeDialogue = dialogue;
+        int speakingLineCount = activeDialogue.speakingLineCount;
 
-        randomSeedsX = new List<float>(maxLogLength);
-        randomSeedsY = new List<float>(maxLogLength);
+        speechBubbles = new List<SpeechAsset>(speakingLineCount);
+        randomSeedsX = new List<float>(speakingLineCount);
+        randomSeedsY = new List<float>(speakingLineCount);
 
-        for (int i = 0; i < maxLogLength; i++)
+        for (int i = 0; i < speakingLineCount; i++)
         {
+            SpeechAsset speechBubble = UIController.GenerateSpeechBubble();
+            speechBubbles.Add(speechBubble);
             randomSeedsX.Add(Random.Range(-1.0f, 1.0f));
             randomSeedsY.Add(Random.Range(0f, 1.0f));
         }
@@ -58,54 +64,76 @@ public class DialogueUIController : MonoBehaviour
     }
 
     public Camera dialogueCamera;
-    public void displaySpeechBubble(string text, Vector3 speakerPosition)
+    //Displays the a speech bubble according to its text and position in the overall dialogue
+    public void DisplaySpeechBubble(string text, Vector3 speakerPosition, int lineNumber)
     {
         ready = false;
-        Vector2 speakerScrenPosition = dialogueCamera.WorldToScreenPoint(speakerPosition);
+        Vector2 speakerScreenPosition = dialogueCamera.WorldToScreenPoint(speakerPosition);
 
-        float relativeXdisplacment = (Camera.main.pixelWidth / 2.0f - speakerScrenPosition.x) / Camera.main.pixelWidth;
-        float relativeYdisplacment = (Camera.main.pixelHeight / 2.0f - speakerScrenPosition.y) / Camera.main.pixelHeight + 0.1f; // The dialogue should always be in the upper portion of the screen 
-                                                                                                                                  // *(offscreen dialogue we will need to handle seperately)
-        StartCoroutine(animateLogs(text, speakerPosition, new Vector2(relativeXdisplacment, relativeYdisplacment)));
+        float relativeXdisplacment = (Camera.main.pixelWidth / 2.0f - speakerScreenPosition.x) / Camera.main.pixelWidth;
+        float relativeYdisplacment = (Camera.main.pixelHeight / 2.0f - speakerScreenPosition.y) / Camera.main.pixelHeight + 0.1f; // The dialogue should always be in the upper portion of the screen 
+
+        Vector2 displacementVector = new Vector2(relativeXdisplacment, relativeYdisplacment);
+
+        // *(offscreen dialogue we will need to handle seperately)
+        SpeechAsset speechBubble = speechBubbles[lineNumber];
+        speechBubble.SetText(text);
+        UIController.DeploySpeechBubbleAt(speechBubble, speakerPosition, displacementVector);
+
+        StartCoroutine(animateLogs(lineNumber));
     }
 
 
-    IEnumerator animateLogs(string text, Vector3 speakerPosition, Vector2 displacementVector)
+    //Automatically animates the logs to the current state of the underlying dialogue data structure
+    public IEnumerator animateLogs(int targetLineNumber)
     {
-        //crappy concurrency lol
-        SpeechAsset speechBubble = UIController.displaySpeechBubble(text, speakerPosition, displacementVector);
-        speechBubble.Focus();
-
-        float logTweenTime = 0.2f;
-        float delta = z_offset / logTweenTime * Time.deltaTime;
-
-        if (speechBubbles.Count > 0)
+        Debug.Log(targetLineNumber);
+        Debug.Log(currentLineNumber);
+        if (currentLineNumber != targetLineNumber)
         {
+            int offset = targetLineNumber - currentLineNumber;
+            
+            //crappy concurrency lol
+            float logTweenTime = 0.2f;
+            float delta = z_offset / logTweenTime * Time.deltaTime;
+
             while (logTweenTime > 0)
             {
                 logTweenTime -= Time.deltaTime;
                 for (int i = 0; i < speechBubbles.Count; i++)
                 {
-                    SpeechAsset prevSpeechBubble = speechBubbles[i];
-                    if (i == speechBubbles.Count - 1)
-                        prevSpeechBubble.transform.position += (Vector3.forward + Vector3.right * randomSeedsX[i] + Vector3.up * randomSeedsY[i]) * delta;
-                    else if (i > speechBubbles.Count - onScreenSpeechBubbleLimit)
-                        prevSpeechBubble.transform.position += Vector3.forward * delta;
+                    SpeechAsset animatedSpeechBubble = speechBubbles[i];
+                    if(offset > 0)
+                    {
+                        if (targetLineNumber - offset <= i && i < targetLineNumber)
+                            animatedSpeechBubble.transform.position += (Vector3.right * randomSeedsX[i] + Vector3.up * randomSeedsY[i]) * delta;
+                    }
                     else
                     {
-                        prevSpeechBubble.transform.position += Vector3.forward * delta;
-                        UIController.hideSpeechBubble(prevSpeechBubble);
+                        if (targetLineNumber <= i && i < targetLineNumber - offset)
+                            animatedSpeechBubble.transform.position -= (Vector3.right * randomSeedsX[i] + Vector3.up * randomSeedsY[i]) * delta;
                     }
+                    if (targetLineNumber - onScreenSpeechBubbleLimit < i && i <= targetLineNumber)
+                        UIController.DeploySpeechBubble(animatedSpeechBubble);
+                    if (i <= targetLineNumber - onScreenSpeechBubbleLimit)
+                        UIController.hideSpeechBubble(animatedSpeechBubble);
+                    if (i > targetLineNumber)
+                        UIController.hideSpeechBubble(animatedSpeechBubble);
+                    if (i == targetLineNumber)
+                        animatedSpeechBubble.Focus();
+                    int currentPosition = Mathf.Clamp(currentLineNumber - i, 0, onScreenSpeechBubbleLimit);
+                    int targetPosition = Mathf.Clamp(targetLineNumber - i, 0, onScreenSpeechBubbleLimit);
+                    animatedSpeechBubble.transform.position += (targetPosition - currentPosition) * Vector3.forward * delta;
                 }
                 yield return null;
             }
             for (int i = 0; i < speechBubbles.Count; i++)
-                speechBubbles[i].Blur();
+            {
+                if (i != targetLineNumber)
+                    speechBubbles[i].Blur();
+            }
+            currentLineNumber = targetLineNumber;
         }
-
-        speechBubbles.Add(speechBubble);
-        speechBubbleTracker = speechBubbles.Count;
-
         yield return new WaitForSeconds(0.2f);
         while (!Controls.confirmInputDown())
             yield return null;

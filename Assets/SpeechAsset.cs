@@ -28,7 +28,7 @@ public class SpeechAsset : MonoBehaviour
     //the center of the relevant character
     public void DeployAt(Vector3 speakerPosition, Vector2 displacementVector)
     {
-        animator.SetBool("Deployed", true);
+        Deploy();
 
         if(displacementVector.x < 0)
             this.transform.position = speakerPosition - anchorPoint.localPosition;
@@ -37,6 +37,11 @@ public class SpeechAsset : MonoBehaviour
             textFrame.transform.localScale -= Vector3.right * textFrame.transform.localScale.x * 2;
             this.transform.position = speakerPosition - anchorPoint.localPosition + Vector3.right * anchorPoint.localPosition.x * 2;
         }
+    }
+
+    public void Deploy()
+    {
+        animator.SetBool("Deployed", true);
     }
 
     public void Focus()
