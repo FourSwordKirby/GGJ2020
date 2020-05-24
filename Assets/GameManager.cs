@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterDialogueAnimator>().startTalking();
 
-        DialogueUIController.instance.init(dialogue);
+        DialogueBubbleUI.instance.init(dialogue);
 
         //Dictionary<string, DialogueAnimator> speakerDict = DialogueEngine.GetSpeakers(dialogue.text).ToDictionary(x => x, x => GameObject.Find(x).GetComponent<DialogueAnimator>());
 
@@ -56,12 +56,12 @@ public class GameManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
                     lineTracker--;
-                    StartCoroutine(DialogueUIController.instance.animateLogs(lineTracker));
+                    StartCoroutine(DialogueBubbleUI.instance.animateLogs(lineTracker));
                 }
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     lineTracker++;
-                    StartCoroutine(DialogueUIController.instance.animateLogs(lineTracker));
+                    StartCoroutine(DialogueBubbleUI.instance.animateLogs(lineTracker));
                 }
                 yield return null;
             }
@@ -92,10 +92,10 @@ public class GameManager : MonoBehaviour
             lineTracker++;
             */
         }
-        DialogueUIController.instance.finishDialogue();
+        DialogueBubbleUI.instance.finishDialogue();
         player.GetComponent<CharacterDialogueAnimator>().stopTalking();
 
-        while(!DialogueUIController.instance.ready)
+        while(!DialogueBubbleUI.instance.ready)
             yield return null;
 
         ConversationUnpause();

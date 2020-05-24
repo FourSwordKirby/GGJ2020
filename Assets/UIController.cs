@@ -24,39 +24,40 @@ public class UIController : MonoBehaviour
         staticSpeechPromptPrefab = speechPromptPrefab;
     }
 
-    public static SpeechAsset displaySpeechPrompt(Vector3 speakerPosition, Vector2 displacementVector)
+    public static IDialogueBubble DisplaySpeechPrompt(Vector3 speakerPosition, Vector2 displacementVector)
     {
-        SpeechAsset speechPrompt = Instantiate(staticSpeechPromptPrefab).GetComponent<SpeechAsset>();
+        IDialogueBubble speechPrompt = Instantiate(staticSpeechPromptPrefab).GetComponent<IDialogueBubble>();
         speechPrompt.DeployAt(speakerPosition, displacementVector);
 
         return speechPrompt;
     }
 
-    public static void hideSpeechPrompt(SpeechAsset speechPrompt)
+    public static void HideSpeechPrompt(IDialogueBubble speechPrompt)
     {
         speechPrompt.Hide();
     }
 
-    public static void DeploySpeechBubbleAt(SpeechAsset speechBubble, Vector3 speakerPosition, Vector2 displacementVector)
+    public static void DeploySpeechBubbleAt(DialogueBubble speechBubble, Vector3 speakerPosition, Vector2 displacementVector)
     {
         speechBubble.gameObject.SetActive(true);
         speechBubble.DeployAt(speakerPosition, displacementVector);
     }
 
-    public static void DeploySpeechBubble(SpeechAsset speechBubble)
+    public static void DeploySpeechBubble(IDialogueBubble speechBubble)
     {
-        speechBubble.Deploy();
+        speechBubble.Show();
     }
 
-    public static SpeechAsset GenerateSpeechBubble()
+    public static DialogueBubble GenerateSpeechBubblePrefab()
     {
-        SpeechAsset speechBubble = Instantiate(staticSpeechBubblePrefab).GetComponent<SpeechAsset>();
+        DialogueBubble speechBubble = Instantiate(staticSpeechBubblePrefab).GetComponent<DialogueBubble>();
         speechBubble.gameObject.SetActive(false);
         return speechBubble;
     }
 
-    public static void hideSpeechBubble(SpeechAsset speechBubble)
+    public static void HideSpeechBubble(IDialogueBubble speechBubble)
     {
+        Debug.Log("hide");
         speechBubble.Blur();
         speechBubble.Hide();
     }
