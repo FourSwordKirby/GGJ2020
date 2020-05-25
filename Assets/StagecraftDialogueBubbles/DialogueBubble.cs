@@ -28,9 +28,6 @@ public class DialogueBubble : MonoBehaviour, IDialogueBubble
     //the center of the relevant character
     public void DeployAt(Vector3 speakerPosition, Vector2 displacementVector)
     {
-        Debug.Log(speakerPosition);
-        Debug.Log(displacementVector);
-
         Show();
 
         if(displacementVector.x < 0)
