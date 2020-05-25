@@ -50,7 +50,7 @@ public class VisualNovelCharacterController : MonoBehaviour {
         portrait.transform.position = FromPosition;
         while(counter < tweenLength)
         {
-            counter += UIController.deltaTime;
+            counter += DialogueUIController.deltaTime;
             portrait.spriteRenderer.color = Color.Lerp(Color.clear, Color.white, counter / tweenLength);
             portrait.transform.position = Vector3.Lerp(FromPosition, ToPosition, counter / tweenLength);
             yield return null;
@@ -67,7 +67,7 @@ public class VisualNovelCharacterController : MonoBehaviour {
         portrait.transform.position = FromPosition;
         while (counter < tweenLength)
         {
-            counter += UIController.deltaTime;
+            counter += DialogueUIController.deltaTime;
             portrait.spriteRenderer.color = Color.Lerp(Color.white, Color.clear, counter / tweenLength);
             portrait.transform.position = Vector3.Lerp(FromPosition, ToPosition, counter / tweenLength);
             yield return null;
@@ -111,7 +111,7 @@ public class VisualNovelCharacterController : MonoBehaviour {
 
         while (counter < tweenLength)
         {
-            counter += UIController.deltaTime;
+            counter += DialogueUIController.deltaTime;
             portrait.spriteRenderer.color = Color.Lerp(portrait.spriteRenderer.color, Color.white, counter / tweenLength);
             yield return new WaitForSeconds(0.01f);
         }
@@ -124,7 +124,7 @@ public class VisualNovelCharacterController : MonoBehaviour {
         
         while (counter < tweenLength)
         {
-            counter += UIController.deltaTime;
+            counter += DialogueUIController.deltaTime;
             portrait.spriteRenderer.color = Color.Lerp(portrait.spriteRenderer.color, Color.white * 0.7f, counter / tweenLength);
             yield return new WaitForSeconds(0.01f);
         }

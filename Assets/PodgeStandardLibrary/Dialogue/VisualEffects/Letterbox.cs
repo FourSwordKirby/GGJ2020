@@ -56,7 +56,7 @@ public class Letterbox : MonoBehaviour {
 
         while (counter <= tweenTime)
         {
-            counter += UIController.deltaTime;
+            counter += DialogueUIController.deltaTime;
             top.transform.position = Vector3.Lerp(topPosition.transform.position, topWingPosition.transform.position, counter / tweenTime);
             bottom.transform.position = Vector3.Lerp(bottomPosition.transform.position, bottomWingPosition.transform.position, counter / tweenTime);
             yield return null;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour
+public class DialogueUIController : MonoBehaviour
 {
     public GameObject speechBubblePrefab;
     public GameObject speechPromptPrefab;
@@ -10,12 +10,12 @@ public class UIController : MonoBehaviour
     public static GameObject staticSpeechBubblePrefab;
     public static GameObject staticSpeechPromptPrefab;
 
-    public static UIController instance;
+    public static DialogueUIController instance;
     internal static float deltaTime = 1.0f/60.0f;
 
     public void Awake()
     {
-        if (UIController.instance == null)
+        if (DialogueUIController.instance == null)
             instance = this;
         else if (this != instance)
             Destroy(this.gameObject);

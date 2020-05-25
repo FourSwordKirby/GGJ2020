@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameEventQueue : MonoBehaviour
 {
 
-    private static Queue<GameEvent> eventQueue = new Queue<GameEvent>();
+    private static Queue<IGameEvent> eventQueue = new Queue<IGameEvent>();
 
     //Instance Managing;
     public static GameEventQueue instance;
@@ -18,7 +18,7 @@ public class GameEventQueue : MonoBehaviour
     }
 
 
-    public void AddGameEvent(GameEvent gameEvent)
+    public void AddGameEvent(IGameEvent gameEvent)
     {
         eventQueue.Enqueue(gameEvent);
         if (!queueRunning)
@@ -41,7 +41,7 @@ public class GameEventQueue : MonoBehaviour
             {
                 if (!runningEvent)
                 {
-                    GameEvent gameEvent = eventQueue.Dequeue();
+                    IGameEvent gameEvent = eventQueue.Dequeue();
                     gameEvent.RunEvent();
                     while (!gameEvent.EventCompleted())
                         yield return null;

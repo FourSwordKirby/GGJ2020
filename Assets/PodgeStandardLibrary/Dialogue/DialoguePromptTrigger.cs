@@ -74,7 +74,7 @@ public class DialoguePromptTrigger : MonoBehaviour
     private void displayPrompt(Vector3 triggerEnteredPosition)
     {
         Vector3 displacementVector = Vector3.Scale(triggerEnteredPosition, -Vector3.one);
-        speechPrompt = UIController.DisplaySpeechPrompt(promptPosition.position, displacementVector);
+        speechPrompt = DialogueUIController.DisplaySpeechPrompt(promptPosition.position, displacementVector);
     }
 
 
@@ -85,7 +85,7 @@ public class DialoguePromptTrigger : MonoBehaviour
             return;
         }
 
-        UIController.HideSpeechPrompt(speechPrompt);
+        DialogueUIController.HideSpeechPrompt(speechPrompt);
     }
 
     private void destroy()

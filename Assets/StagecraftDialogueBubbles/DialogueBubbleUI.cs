@@ -40,7 +40,7 @@ public class DialogueBubbleUI : MonoBehaviour
 
         for (int i = 0; i < speakingLineCount; i++)
         {
-            DialogueBubble speechBubble = UIController.GenerateSpeechBubblePrefab();
+            DialogueBubble speechBubble = DialogueUIController.GenerateSpeechBubblePrefab();
             speechBubbles.Add(speechBubble);
             randomSeedsX.Add(Random.Range(-1.0f, 1.0f));
             randomSeedsY.Add(Random.Range(0f, 1.0f));
@@ -80,7 +80,7 @@ public class DialogueBubbleUI : MonoBehaviour
         // *(offscreen dialogue we will need to handle seperately)
         DialogueBubble speechBubble = speechBubbles[lineNumber];
         speechBubble.SetDialogueBubbleContent(speakingLineContent);
-        UIController.DeploySpeechBubbleAt(speechBubble, speakerPosition, displacementVector);
+        DialogueUIController.DeploySpeechBubbleAt(speechBubble, speakerPosition, displacementVector);
 
         StartCoroutine(animateLogs(lineNumber));
     }
@@ -116,11 +116,11 @@ public class DialogueBubbleUI : MonoBehaviour
                             animatedSpeechBubble.transform.position -= (Vector3.right * randomSeedsX[i] + Vector3.up * randomSeedsY[i]) * delta;
                     }
                     if (targetLineNumber - onScreenSpeechBubbleLimit < i && i <= targetLineNumber)
-                        UIController.DeploySpeechBubble(animatedSpeechBubble);
+                        DialogueUIController.DeploySpeechBubble(animatedSpeechBubble);
                     if (i <= targetLineNumber - onScreenSpeechBubbleLimit)
-                        UIController.HideSpeechBubble(animatedSpeechBubble);
+                        DialogueUIController.HideSpeechBubble(animatedSpeechBubble);
                     if (i > targetLineNumber)
-                        UIController.HideSpeechBubble(animatedSpeechBubble);
+                        DialogueUIController.HideSpeechBubble(animatedSpeechBubble);
                     if (i == targetLineNumber)
                         animatedSpeechBubble.Focus();
                     int currentPosition = Mathf.Clamp(currentLineNumber - i, 0, onScreenSpeechBubbleLimit);

@@ -1,27 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//Enums for various player things
-public enum Symbol
-{
-    Interested
-}
-
-public enum ItemDesignation
-{
-    WeatherCharm,
-    Soda,
-    Coin
-}
-
-public enum SoundType
-{
-    Menu,
-    Environment,
-    Item,
-    Action
-}
-
 public class Parameters : MonoBehaviour
 {
 
