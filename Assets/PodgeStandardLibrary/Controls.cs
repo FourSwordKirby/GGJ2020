@@ -49,13 +49,13 @@ public class Controls {
         return new Vector2(xAxis, yAxis);
     }
 
-    public static Parameters.InputDirection getInputDirection()
+    public static InputDirection getInputDirection()
     {
         return Parameters.vectorToDirection(getDirection());
     }
 
     //We need to refactor everything orz
-    public static Parameters.InputDirection getInputDirection(int player)
+    public static InputDirection getInputDirection(PlayerDesignations player)
     {
         return Parameters.vectorToDirection(getDirection());
     }
@@ -95,13 +95,13 @@ public class Controls {
         return new Vector2(xAxis, yAxis);
     }
 
-    public static bool DirectionDown(Parameters.InputDirection dir)
+    public static bool DirectionDown(InputDirection dir)
     {
         if (!gameplayEnabled)
             return false;
 
         //Hacky, probably should fix to be correct later
-        Parameters.InputDirection currentInput = getInputDirection();
+        InputDirection currentInput = getInputDirection();
         return currentInput == dir;
     }
 
@@ -173,11 +173,224 @@ public class Controls {
         return Input.GetButton("P1 Jump");
     }
 
+    static InputDirection currentHeldDir = InputDirection.None;
+
+    public static InputDirection getInputDirectionDown()
+    {
+        if (!gameplayEnabled)
+            return InputDirection.None;
+
+        InputDirection currentDir = getInputDirection();
+        //Hacky, probably should fix to be correct later
+        if (currentHeldDir == currentDir)
+            return InputDirection.None;
+
+        currentHeldDir = currentDir;
+        return currentHeldDir;
+    }
+
+    public static bool JumpInputDown(PlayerDesignations player)
+    {
+        return Input.GetButtonDown("P1 Jump");
+    }
+
+    public static bool ActionInputDown(PlayerDesignations player)
+    {
+        return Input.GetButtonDown("Action");
+    }
+
+
+    public static bool ActionInputHeld(PlayerDesignations player)
+    {
+        return Input.GetButton("Action");
+    }
+
+    internal static bool AssistOneInputDown()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButtonDown("AssistOne");
+    }
+
+    internal static bool AssistOneInputHeld()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButton("AssistOne");
+    }
+
+    internal static bool AssistTwoInputDown()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButtonDown("AssistTwo");
+    }
+
+    internal static bool AssistTwoInputHeld()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButton("AssistTwo");
+    }
+
+    internal static bool AssistThreeInputDown()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButtonDown("AssistThree");
+    }
+
+    internal static bool AssistThreeInputHeld()
+    {
+        if (!gameplayEnabled)
+            return false;
+
+        return Input.GetButton("AssistThree");
+    }
+
+    //******************Deprecated research project fighting game inputs*******************
+    //*************************************************************************************
+    public static bool jumpInputDown(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButtonDown("P1 Jump");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButtonDown("P2 Jump");
+        else
+            return false;
+    }
+
+    public static bool attackInputDown(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButtonDown("P1 Attack");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButtonDown("P2 Attack");
+        else
+            return false;
+    }
+
+    public static bool specialInputDown(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButtonDown("P1 Special");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButtonDown("P2 Special");
+        else
+            return false;
+    }
+
+    public static bool shieldInputDown(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButtonDown("P1 Shield");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButtonDown("P2 Shield");
+        else
+            return false;
+    }
+
+    public static bool dashInputDown(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButtonDown("P1 Dash");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButtonDown("P2 Dash");
+        else
+            return false;
+    }
+
+    public static bool superInputDown(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButtonDown("P1 Super");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButtonDown("P2 Super");
+        else
+            return false;
+    }
+
+    public static bool pauseInputDown(PlayerDesignations player)
+    {
+        return Input.GetButtonDown("Pause");
+    }
+
+
+    public static bool jumpInputHeld(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButton("P1 Jump");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButton("P2 Jump");
+        else
+            return false;
+    }
+
+    public static bool attackInputHeld(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButton("P1 Attack");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButton("P2 Attack");
+        else
+            return false;
+    }
+
+    public static bool specialInputHeld(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButton("P1 Special");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButton("P2 Special");
+        else
+            return false;
+    }
+
+    public static bool shieldInputHeld(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButton("P1 Shield");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButton("P2 Shield");
+        else
+            return false;
+    }
+
+    public static bool dashInputHeld(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButton("P1 Dash");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButton("P2 Dash");
+        else
+            return false;
+    }
+
+    public static bool superInputHeld(PlayerDesignations player)
+    {
+        if (player == PlayerDesignations.Player1)
+            return Input.GetButton("P1 Super");
+        else if (player == PlayerDesignations.Player2)
+            return Input.GetButton("P2 Super");
+        else
+            return false;
+    }
+
+    public static bool pauseInputHeld(PlayerDesignations player)
+    {
+        return Input.GetButton("Pause");
+    }
+
     //Fighting game inputs
     /*
-    public static bool jumpInputDown(int player)
+    public static bool jumpInputDown(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButtonDown("P1 Jump");
         else if (player = GameManager.instance.p2)
             return Input.GetButtonDown("P2 Jump");
@@ -185,125 +398,131 @@ public class Controls {
             return false;
     }
 
-    public static bool attackInputDown(int player)
+    public static bool attackInputDown(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButtonDown("P1 Attack");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButtonDown("P2 Attack");
         else
             return false;
     }
 
-    public static bool specialInputDown(int player)
+    public static bool specialInputDown(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButtonDown("P1 Special");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButtonDown("P2 Special");
         else
             return false;
     }
 
-    public static bool shieldInputDown(int player)
+    public static bool shieldInputDown(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButtonDown("P1 Shield");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButtonDown("P2 Shield");
         else
             return false;
     }
 
-    public static bool dashInputDown(int player)
+    public static bool dashInputDown(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButtonDown("P1 Dash");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButtonDown("P2 Dash");
         else
             return false;
     }
 
-    public static bool superInputDown(int player)
+    public static bool superInputDown(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButtonDown("P1 Super");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButtonDown("P2 Super");
         else
             return false;
     }
 
-    public static bool pauseInputDown(int player)
+    public static bool pauseInputDown(PlayerDesignations player)
     {
         return Input.GetButtonDown("Pause");
     }
 
 
-    public static bool jumpInputHeld(int player)
+    public static bool jumpInputHeld(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButton("P1 Jump");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButton("P2 Jump");
         else
             return false;
     }
 
-    public static bool attackInputHeld(int player)
+    public static bool attackInputHeld(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButton("P1 Attack");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButton("P2 Attack");
         else
             return false;
     }
 
-    public static bool specialInputHeld(int player)
+    public static bool specialInputHeld(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButton("P1 Special");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButton("P2 Special");
         else
             return false;
     }
 
-    public static bool shieldInputHeld(int player)
+    public static bool shieldInputHeld(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButton("P1 Shield");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButton("P2 Shield");
         else
             return false;
     }
 
-    public static bool dashInputHeld(int player)
+    public static bool dashInputHeld(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButton("P1 Dash");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButton("P2 Dash");
         else
             return false;
     }
 
-    public static bool superInputHeld(int player)
+    public static bool superInputHeld(PlayerDesignations player)
     {
-        if (player == GameManager.instance.p1)
+        if (player == PlayerDesignations.Player1)
             return Input.GetButton("P1 Super");
-        else if (player == GameManager.instance.p2)
+        else if (player == PlayerDesignations.Player2)
             return Input.GetButton("P2 Super");
         else
             return false;
     }
 
-    public static bool pauseInputHeld(int player)
+    public static bool pauseInputHeld(PlayerDesignations player)
     {
         return Input.GetButton("Pause");
     }
     */
+}
+
+public enum PlayerDesignations
+{
+    Player1,
+    Player2
 }

@@ -15,7 +15,6 @@ public class CameraControls : MonoBehaviour {
 	private float shakeIntensity = 0.0f;
 	private float shakeDuration = 0.0f;
 	private ShakePresets shakeDirection = ShakePresets.NONE;
-    private Action shakeComplete = null;
 	private Vector2 shakeOffset = new Vector2();
 
     public float zoomSpeed = 20f;
@@ -176,7 +175,6 @@ public class CameraControls : MonoBehaviour {
 
     public void Shake(float Intensity = 0.05f, 
                         float Duration = 0.5f, 
-                        Action OnComplete = null, 
                         bool Force = true, 
                         ShakePresets Direction = ShakePresets.NONE)
     {
@@ -184,7 +182,6 @@ public class CameraControls : MonoBehaviour {
 			return;
 		shakeIntensity = Intensity;
 		shakeDuration = Duration;
-        shakeComplete = OnComplete;
 		shakeDirection = Direction;
         shakeOffset.Set(0, 0);
     }
@@ -192,8 +189,6 @@ public class CameraControls : MonoBehaviour {
     private void stopShaking()
     {
         shakeOffset.Set(0, 0);
-        if (shakeComplete != null)
-            shakeComplete();
     }
 
     private void applyShake()

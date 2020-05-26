@@ -44,7 +44,7 @@ public class SampleDialogueUI : MonoBehaviour
         //Do something where text appears according to the textDisplaySpeed
         if (textDisplayTimer > 0)
         {
-            textDisplayTimer -= DialogueUIController.deltaTime;
+            textDisplayTimer -= Time.deltaTime;
             return;
         }
 

@@ -34,7 +34,7 @@ public class DialogueEngine
 
         string currentSpeaker = "";
         int speakingLineNumber = 0;
-        for (int i = 0; i < rawLines.Count; i++)
+        for(int i = 0; i < rawLines.Count; i++)
         {
             ScriptLine processedLine = null;
 
@@ -65,7 +65,7 @@ public class DialogueEngine
         if (line.StartsWith("[expression]"))
             return LineType.Instruction;
         else
-            return LineType.SpeakingLine;
+           return LineType.SpeakingLine;
     }
 
     public static string GetSpeaker(string line)

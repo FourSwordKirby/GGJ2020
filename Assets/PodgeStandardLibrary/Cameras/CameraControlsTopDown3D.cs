@@ -15,7 +15,6 @@ public class CameraControlsTopDown3D : MonoBehaviour {
 	private float shakeIntensity = 0.0f;
 	private float shakeDuration = 0.0f;
 	private ShakePresets shakeDirection = ShakePresets.BOTH;
-    private Action shakeComplete = null;
 	private Vector2 shakeOffset = new Vector2();
 
     public float zoomSpeed = 20f;
@@ -244,8 +243,7 @@ public class CameraControlsTopDown3D : MonoBehaviour {
     }
 
     public void Shake(float Intensity = 0.1f, 
-                        float Duration = 0.5f, 
-                        Action OnComplete = null, 
+                        float Duration = 0.5f,
                         bool Force = true, 
                         ShakePresets Direction = ShakePresets.BOTH)
     {
@@ -253,7 +251,6 @@ public class CameraControlsTopDown3D : MonoBehaviour {
 			return;
 		shakeIntensity = Intensity;
 		shakeDuration = Duration;
-        shakeComplete = OnComplete;
 		shakeDirection = Direction;
         shakeOffset.Set(0, 0);
     }
@@ -261,8 +258,6 @@ public class CameraControlsTopDown3D : MonoBehaviour {
     private void stopShaking()
     {
         shakeOffset.Set(0, 0);
-        if (shakeComplete != null)
-            shakeComplete();
     }
 
     private void applyShake()
