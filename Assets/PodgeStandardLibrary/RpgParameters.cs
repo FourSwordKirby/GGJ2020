@@ -2,6 +2,14 @@
 using System.Collections;
 
 //Enums for various player things
+public enum CharacterExpressions
+{
+    normal = 0,
+    smile = 1,
+    yandere = 2,
+    think = 3
+}
+
 public enum Symbol
 {
     Interested

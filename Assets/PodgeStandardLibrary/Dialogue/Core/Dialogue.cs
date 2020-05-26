@@ -12,13 +12,14 @@ public class Dialogue
     public bool IsFinished { get => readCount == lines.Count; }
 
     //temporary variables for getting this working with the current implementation
-    public int speakingLineCount {
+    public int speakingLineCount
+    {
         get => lines.Where(x => x.GetLineType() == DialogueEngine.LineType.SpeakingLine).ToList().Count;
     }
 
-    public Dialogue (string fullDialogue)
+    public Dialogue(List<ScriptLine> lines)
     {
-        lines = DialogueEngine.CreateDialogueComponents(fullDialogue);
+        this.lines = lines;
         readCount = 0;
         currentPosition = 0;
     }
@@ -32,7 +33,7 @@ public class Dialogue
     // Throws an exception if we try to get the next line when we already passed the current line count
     public ScriptLine GetNextLine()
     {
-        if(currentPosition < lines.Count)
+        if (currentPosition < lines.Count)
         {
             ScriptLine line = lines[currentPosition];
             readCount++;

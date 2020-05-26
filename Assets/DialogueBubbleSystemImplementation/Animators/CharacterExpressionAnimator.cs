@@ -12,9 +12,9 @@ public class CharacterExpressionAnimator : MonoBehaviour
     public List<Texture2D> expressions;
     public List<Sprite> expressionSprites;
 
-    public Expressions? targetExpression = null;
+    public CharacterExpressions? targetExpression = null;
 
-    public void changeExpression(Expressions expression)
+    public void changeExpression(CharacterExpressions expression)
     {
         targetExpression = expression;
         animator.SetTrigger("NormalExpression");
@@ -33,13 +33,5 @@ public class CharacterExpressionAnimator : MonoBehaviour
             expressionRendererFront.material.SetTexture("_MainTex", expressions[0]);
             expressionRendererBack.sprite = expressionSprites[0];
         }
-    }
-
-    public enum Expressions
-    {
-        normal = 0,
-        smile = 1,
-        yandere = 2,
-        think = 3
     }
 }

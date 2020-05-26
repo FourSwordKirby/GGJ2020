@@ -5,15 +5,22 @@ using System;
 
 public class InstructionLine : ScriptLine
 {
-    CharacterExpressionAnimator.Expressions desiredExpression;
+    CharacterExpressions desiredExpression;
 
     public InstructionLine(string instruction)
     {
         if (instruction.StartsWith("[expression]"))
         {
             string expressionString = instruction.Split(' ')[1];
-            desiredExpression = (CharacterExpressionAnimator.Expressions)Enum.Parse(typeof(CharacterExpressionAnimator.Expressions), expressionString);
+            desiredExpression = (CharacterExpressions)Enum.Parse(typeof(CharacterExpressions), expressionString);
         }
+    }
+
+    public static InstructionLine CreateInstructionLine(string instruction)
+    {
+        InstructionLine line = new InstructionLine(instruction);
+
+        return line;
     }
 
     //Change this based on the game implementation

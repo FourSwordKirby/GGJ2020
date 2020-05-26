@@ -2,23 +2,9 @@
 using UnityEditor;
 using System.Collections.Generic;
 
-public struct SpeakingLineContent
+public class SpeakingLine : ScriptLine
 {
-    public string speaker;
-    public string lineText;
-    public int lineNumber;
-
-    public SpeakingLineContent(string speaker, string lineText, int lineNumber)
-    {
-        this.speaker = speaker;
-        this.lineText = lineText;
-        this.lineNumber = lineNumber;
-    }
-}
-
-public class SpeakingLine: ScriptLine
-{
-    SpeakingLineContent content = new SpeakingLineContent();
+    SpeakingLineContent content;
     DialogueAnimator speakerAnimator;
 
     public SpeakingLine(string speaker, string lineText, int lineNumber)
@@ -28,6 +14,12 @@ public class SpeakingLine: ScriptLine
         speakerAnimator = GameObject.Find(speaker).GetComponent<DialogueAnimator>();
     }
 
+    public static SpeakingLine CreateSpeakingLine(string speaker, string lineText, int lineNumber)
+    {
+        SpeakingLine line = new SpeakingLine(speaker, lineText, lineNumber);
+
+        return line;
+    }
 
     //Change this based on the game implementation
     public override void PerformLine()

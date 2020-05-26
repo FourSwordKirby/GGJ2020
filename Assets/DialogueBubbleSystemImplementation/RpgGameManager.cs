@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class RpgGameManager : MonoBehaviour
 {
     public delegate void AfterDialogueEvent();
 
-    public static GameManager instance;
+    public static RpgGameManager instance;
 
     public void Awake()
     {
@@ -36,10 +36,11 @@ public class GameManager : MonoBehaviour
     {
         // If a special camera position was provided, tell the camera man to use it.
         ConversationPause();
-
+        /*
         CameraMan cameraMan = FindObjectOfType<CameraMan>();
         if (cameraPosition != null)
             cameraMan.StartCinematicMode(cameraPosition);
+        */
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterDialogueAnimator>().startTalking();
@@ -103,7 +104,9 @@ public class GameManager : MonoBehaviour
 
         ConversationUnpause();
 
-        cameraMan.EndCinematicMode();        
+        /*
+        cameraMan.EndCinematicMode();
+        */
 
         afterEvent();
         yield return null;
@@ -112,25 +115,26 @@ public class GameManager : MonoBehaviour
     //hacky gameplay pause implementation because hackathon
     private void ConversationPause()
     {
-        PauseGameplay();
+        //PauseGameplay();
     }
     private void ConversationUnpause()
     {
-        ResumeGameplay();
+        //ResumeGameplay();
     }
 
-    bool gamePaused = false;
-    public bool Paused { get { return gamePaused; } }
-    public void PauseGameplay()
-    {
-        gamePaused = true;
-        foreach (CharacterMovement entity in GameObject.FindObjectsOfType<CharacterMovement>())
-            entity.enabled = false;
-    }
-    public void ResumeGameplay()
-    {
-        gamePaused = false;
-        foreach (CharacterMovement entity in GameObject.FindObjectsOfType<CharacterMovement>())
-            entity.enabled = true;
-    }
+    //bool gamePaused = false;
+    //public bool Paused { get { return gamePaused; } }
+    //public void PauseGameplay()
+    //{
+    //    gamePaused = true;
+    //    foreach (CharacterMovement entity in GameObject.FindObjectsOfType<CharacterMovement>())
+    //        entity.enabled = false;
+    //}
+    //public void ResumeGameplay()
+    //{
+    //    gamePaused = false;
+    //    foreach (CharacterMovement entity in GameObject.FindObjectsOfType<CharacterMovement>())
+    //        entity.enabled = true;
+    //}
+
 }
